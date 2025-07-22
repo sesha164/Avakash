@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - Avakash</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Identity Services Script -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      text-align: center;
+      padding: 50px 20px;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #555;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    input {
+      padding: 12px;
+      margin: 10px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      outline: none;
+    }
+    .submit-btn {
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #g_id_onload, .g_id_signin {
+      margin: 20px auto;
+      display: inline-block;
+    }
+    .info-section {
+      display: flex;
+      justify-content: center;
+      background-color: #e0f7fa;
+      padding: 50px 10px;
+      flex-wrap: wrap;
+    }
+    .info-box {
+      background: #fff;
+      margin: 20px;
+      padding: 30px;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .info-box img {
+      width: 40px;
+      margin-bottom: 15px;
+    }
+    .info-box h3 {
+      margin-bottom: 10px;
+      color: #007c91;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Any questions? Just write us a message!</p>
+
+    <!-- Google Sign-In Button -->
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="pill"
+         data-theme="outline"
+         data-text="continue_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
+
+    <!-- Form -->
+    <form>
+      <input type="email" placeholder="Enter a valid email address" required id="emailInput">
+      <input type="text" placeholder="Enter your Name" required><br>
+      <button class="submit-btn" type="submit">SUBMIT</button>
+    </form>
+  </div>
+
+  <div class="info-section">
+    <div class="info-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" alt="info icon">
+      <h3>ABOUT AVAKASH</h3>
+      <p>Job Guidance<br>Rural Employment Support</p>
+    </div>
+    <div class="info-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone icon">
+      <h3>PHONE (HELPLINE)</h3>
+      <p>+91 81253 67973<br>+91 93900 12345</p>
+    </div>
+  </div>
+
+  <!-- Google Sign-In Callback Script -->
+  <script>
+    function handleCredentialResponse(response) {
+      // Decode JWT token to get user info
+      const data = parseJwt(response.credential);
+      console.log("Google User Info:", data);
+      document.getElementById('emailInput').value = data.email;
+      alert("Signed in as " + data.name);
+    }
+
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return JSON.parse(jsonPayload);
+    }
+  </script>
+</body>
+</html>
