@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rural Job Opportunities</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f3f3;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .job-card {
+      height: 180px;
+      border-radius: 12px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px #000;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .job-card:hover {
+      transform: scale(1.05);
+    }
+
+    /* Backgrounds (Use royalty-free images or your own local ones) */
+    .dailyworker { background: url('images/daily worker3.png') center/cover; }
+    .poultry     { background: url('images/poultry worker.png') center/cover; }
+    .retail      { background: url('images/abc.jpg') center/cover; }
+    .tutor       { background: url('images/tutor.png') center/cover; }
+    .milk        { background: url('images/milk center.png') center/cover; }
+    .saree       { background: url('images/saree weaver.png')center/cover;}
+    .tailor      { background: url('images/tailor.jpg')center/cover;}
+  </style>
+</head>
+<body>
+
+  <h1>Available jobs in Chigurukota</h1>
+  <div class="job-grid">
+    <div class="job-card dailyworker">Daily Worker</div>
+    <div class="job-card poultry">Poultry Farming</div>
+    <div class="job-card retail">Retail Worker</div>
+    <div class="job-card tutor">Tutor</div>
+    <div class="job-card milk">Milk Center</div>
+    <div class="job-card saree">Saree Waever</div>
+    <div class="job-card tailor">Tailor</div>
+  </div>
+
+</body>
+</html>
