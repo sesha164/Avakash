@@ -5,25 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Avakash - Signup</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
       background-size: cover;
-
       color: white;
       position: relative;
     }
 
-    /* Dark overlay for contrast */
     body::before {
       content: "";
       position: fixed;
@@ -44,7 +36,7 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.7);
     }
 
-    .container h2 {
+    h2 {
       text-align: center;
       margin-bottom: 30px;
       font-size: 32px;
@@ -63,7 +55,7 @@
     input[type="email"],
     input[type="password"] {
       width: 100%;
-      padding: 12px 14px;
+      padding: 12px;
       margin-bottom: 20px;
       border: none;
       border-radius: 6px;
@@ -88,6 +80,26 @@
       background-color: #e6c84f;
     }
 
+    .google-btn {
+      background-color: white;
+      color: #444;
+      font-weight: 600;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .google-btn img {
+      margin-right: 10px;
+    }
+
     .login-link {
       margin-top: 20px;
       text-align: center;
@@ -110,7 +122,7 @@
         padding: 30px 20px;
       }
 
-      .container h2 {
+      h2 {
         font-size: 26px;
       }
     }
@@ -119,7 +131,7 @@
 <body>
   <div class="container">
     <h2>Sign Up to Avakash</h2>
-    <form action="#" method="POST">
+    <form id="signup-form">
       <label for="fullname">Full Name</label>
       <input type="text" id="fullname" name="fullname" placeholder="Your full name" required />
 
@@ -134,10 +146,22 @@
 
       <input type="submit" value="Sign Up" />
     </form>
+
+    <hr style="margin: 20px 0; border-color: rgba(255,255,255,0.3);">
+
+    <button class="google-btn" onclick="googleLogin()">
+      <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google logo" />
+      Continue with Google
+    </button>
+
     <div class="login-link">
-      Already have an account? 
-      <button class="login" onclick="location.href='login.html'">Login Here</button>
+      Already have an account?
+      <a href="login.html">Login Here</a>
     </div>
   </div>
+
+  <!-- Firebase logic -->
+  <script type="module" src="javascript\SignUp.js"></script>
 </body>
 </html>
+
