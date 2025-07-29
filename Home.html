@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
   html, body {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url('images/ima.jpg') no-repeat center center fixed;
+  background: url('images/vt.png') no-repeat center center fixed;
   background-size: cover;
   color: white;
   position: relative;
@@ -65,15 +66,17 @@
       color: #000;
     }
 
-    .profile-icon img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid #ffdd57;
-      cursor: pointer;
-      box-shadow: 0 0 6px #ffdd57;
-      vertical-align: middle;
-    }
+    .Profile-icon img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ffdd57;
+  cursor: pointer;
+  box-shadow: 0 0 6px #ffdd57;
+  vertical-align: middle;
+}
+
+      
 
     main {
       position: relative;
@@ -157,13 +160,14 @@
 </head>
 <body>
 
+ 
 <header>
   <div class="logo">Avakash</div>
   <nav>
-    <a href="review.html">Review</a>
-    <a href="about.html">About</a>
-    <a href="Contact Us.html">Contact Us</a>
-    <a class="profile-icon" href="userprofile.html">
+    <a href="Review.html">Review</a>
+    <a href="About.html">About</a>
+    <a href="ContactUs.html">Contact Us</a>
+    <a class="Profile-icon" href="userprofile.html">
       <img src="Images/profile.png" alt="User Profile" />
     </a>
   </nav>
@@ -180,41 +184,10 @@
       <button class="signup" onclick="location.href='signup.html'">Signup</button>
       
     </div>
+    <nav>
+
+
+
   </main>
- <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDzoiMWqxYKa8UUDkwxN_BDVFYhvICZAA0",
-    authDomain: "jobportal-29f10.firebaseapp.com",
-    projectId: "jobportal-29f10",
-    storageBucket: "jobportal-29f10.appspot.com",
-    messagingSenderId: "913493555435",
-    appId: "1:913493555435:web:836d5428f5802e5a5c66ae",
-    measurementId: "G-W9VQ81HR98"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // Function triggered on clicking the profile icon
-  window.checkUserAuthentication = () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // ✅ User is logged in
-        window.location.href = "Userprofile.html";
-      } else {
-        // ❌ Not logged in: Redirect to login or signup
-        const goToLogin = confirm("You need to log in to access your profile. Do you want to log in now?");
-        if (goToLogin) {
-          window.location.href = "Login.html";
-        }
-      }
-    });
-  };
-</script>
-
-
 </body>
 </html>
