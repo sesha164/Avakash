@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rural Job Opportunities</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #DBF9DB;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .job-card {
+      image-rendering: -webkit-optimize-contrast;
+      height: 300px;
+      border-radius: 12px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px #000;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .job-card:hover {
+      transform: scale(1.02);
+    }
+
+    /* Backgrounds (Use royalty-free images or your own local ones) */
+    .teacher     { background-image: url('images/teacher.png'); }
+    .dailyworker { background-image: url('images/daily worker3.png'); }
+    .retail      { background-image: url('images/abc.jpg'); }
+    .barber      { background-image: url('images/barber.jpg'); }
+    .milkcenter  { background-image: url('images/milk center.png'); }
+    .tutor       { background-image: url('images/tutor.png'); }
+  </style>
+</head>
+<body>
+
+  <h1>Available jobs in Koduru</h1>
+  <div class="job-grid">
+    <div class="job-card teacher">Teacher</div>
+    <div class="job-card dailyworker">Daily Worker</div>
+    <div class="job-card retail">Retail Worker</div>
+    <div class="job-card barber">Barber</div>
+    <div class="job-card milkcenter">Milk Center</div>
+    <div class="job-card tutor">Tutor</div>
+  </div>
+
+</body>
+</html>

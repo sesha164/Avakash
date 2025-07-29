@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Avakash - Employer Profile</title>
+
+  <!-- Font Awesome for Icons -->
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2563EB, #7C3AED); 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .profile-wrapper {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 700px;
+      width: 90%;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .logo-container {
+      margin-bottom: 25px;
+    }
+
+    .employer-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #2a4d9b;
+      box-shadow: 0 2px 10px rgba(42, 77, 155, 0.3);
+    }
+
+    .profile-header {
+      margin-bottom: 30px;
+    }
+
+    .profile-header h2 {
+      font-size: 28px;
+      color: #2a4d9b;
+      margin: 0;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: #2a4d9b;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+    }
+
+    .submit-btn:hover {
+      background-color: #1e3d80;
+    }
+
+    @media (max-width: 600px) {
+      .profile-wrapper {
+        padding: 25px;
+      }
+      .profile-header h2 {
+        font-size: 24px;
+      }
+      .employer-logo {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-wrapper">
+    <!-- Employer Logo -->
+    <div class="logo-container">
+      <img
+        src="images/googleimg.webp"
+        alt="Employer Logo"
+        class="employer-logo"
+      />
+    </div>
+
+    <!-- Heading -->
+    <div class="profile-header">
+      <h2><i class="fas fa-building"></i> Employer Profile - Avakash</h2>
+    </div>
+
+    <!-- Employer Profile Form -->
+    <form>
+      <div class="form-group">
+        <label for="employerName">Name</label>
+        <input type="text" id="employerName" placeholder="Shop/Business Owner Name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" rows="2" placeholder="Full address of the shop or office" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="skills">Required Skills</label>
+        <select id="skills" required>
+          <option value="">Select a Skill</option>
+          <option>Teaching</option>
+          <option>Cooking</option>
+          <option>Tailoring</option>
+          <option>Retail Sales</option>
+          <option>Plumbing</option>
+          <option>Electrician</option>
+          <option>Driving</option>
+          <option>Customer Service</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ageLimit">Age Limit</label>
+        <select id="ageLimit" required>
+          <option value="">Select Age Limit</option>
+          <option>18–25</option>
+          <option>18–30</option>
+          <option>18–35</option>
+          <option>21–40</option>
+          <option>No Age Limit</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="workingHours">Working Hours</label>
+        <input type="text" id="workingHours" placeholder="e.g., 9am - 6pm" required />
+      </div>
+
+      <div class="form-group">
+        <label for="salary">Salary Offered</label>
+        <input type="text" id="salary" placeholder="e.g., ₹12,000 per month" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Job Description</label>
+        <textarea id="description" rows="3" placeholder="Brief description of the job role" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="contact">Contact Number</label>
+        <input type="tel" id="contact" placeholder="e.g., 9876543210" required />
+      </div>
+
+      <div class="form-group">
+        <label for="shopPhoto">Upload Shop Photo</label>
+        <input type="file" id="shopPhoto" accept="image/*" />
+      </div>
+
+      <div class="form-group">
+        <label for="gps">GPS Location (Latitude, Longitude)</label>
+        <input type="text" id="gps" placeholder="e.g., 28.6139, 77.2090" required />
+      </div>
+
+      <button type="submit" class="submit-btn">Save Employer Profile</button>
+    </form>
+  </div>
+
+
+
+  
+</body>
+</html>

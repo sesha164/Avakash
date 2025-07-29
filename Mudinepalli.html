@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rural Job Opportunities</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #E9CFEC;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .job-card {
+      image-rendering: -webkit-optimize-contrast;
+      height: 300px;
+      border-radius: 12px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px #000;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .job-card:hover {
+      transform: scale(1.02);
+    }
+
+    /* Backgrounds (Use royalty-free images or your own local ones) */
+    .chef        { background-image: url('images/chef.png'); }   
+    .teacher     { background-image: url('images/teacher.png'); }
+    .dailyworker { background-image: url('images/daily worker.png'); }
+    .poultry     { background-image: url('images/poultry worker.png'); }
+    .clothing    { background-image: url('images/clothing store.png'); }
+    .retail      { background-image: url('images/abc.jpg'); }
+    .millworker  { background-image: url('images/rice mill worker.png'); }
+    .basket      { background-image: url('images/basket weaver.jpg'); }
+  </style>
+</head>
+<body>
+
+  <h1>Available jobs in Mudinepalli</h1>
+  <div class="job-grid">
+    <div class="job-card chef">Chef</div>
+    <div class="job-card teacher">Teacher</div>
+    <div class="job-card dailyworker">Daily Worker</div>
+    <div class="job-card poultry">Poultry Farming</div>
+    <div class="job-card clothing">Clothing Store</div>
+    <div class="job-card retail">Retail Worker</div>
+    <div class="job-card millworker">Rice Mill Workers</div>
+    <div class="job-card basket">Basket Weaver</div>
+  </div>
+
+</body>
+</html>
