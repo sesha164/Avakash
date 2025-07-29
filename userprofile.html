@@ -102,14 +102,16 @@
   </style>
 </head>
 <body>
-
+ 
   <div class="profile-wrapper">
     <!-- Profile Header with Logo -->
     <div class="profile-header">
-    <a >
-  <img  src="Images/profile.png" alt="User Profile"
-       style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;" />
+<a class="profile-icon" href="#" onclick="checkUserAuthentication ()">
+  <img src="Images/profile.png" alt="User Profile"
+   style="width: 40px; height: 40px; border-radius: 50%; cursor: pointer;" />
+  
 </a>
+
       <h2>User Profile - Avakash</h2>
     </div>
 
@@ -118,6 +120,10 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your Email" required>
       </div>
 
       <div class="form-group">
@@ -164,6 +170,7 @@
   </div>
 
 
-  
 </body>
 </html>
+
+
