@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reviews - Avakash</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #fff0b3, #ffe6cc, #e6ffe6);
+      background-attachment: fixed;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+      font-size: 16px;
+    }
+
+    button {
+      background: linear-gradient(to right, #66bb6a, #43a047);
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #388e3c, #2e7d32);
+    }
+
+    .reviews {
+      margin-top: 40px;
+    }
+
+    .review {
+      background-color: #f9fbe7;
+      border-left: 5px solid #cddc39;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .review-name {
+      font-weight: bold;
+      color: #444;
+    }
+
+    .review-rating {
+      color: #ff9800;
+      margin: 5px 0;
+    }
+
+    .review-message {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>What Our Users Say</h1>
+
+    <form class="review-form">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="rating">Rating (1 to 5)</label>
+      <input type="text" id="rating" name="rating" required />
+
+      <label for="message">Your Review</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Submit Review</button>
+    </form>
+
+    
+    <div class="reviews">
+      <div class="review">
+        <div class="review-name">Suman Devi (chinapalaparru)</div>
+        <div class="review-rating">★★★★☆</div>
+        <div class="review-message">Thanks to Avakash, I found stitching work in my own village. No need to travel far!</div>
+      </div>
+      <div class="review">
+        <div class="review-name">Ravi Kumar (Guraja)</div>
+        <div class="review-rating">★★★★★</div>
+        <div class="review-message">Easy to use and job updates come via SMS. Very helpful!</div>
+      </div>
+      <div class="review">
+        <div class="review-name">Lalitha (Mudenepalli)</div>
+        <div class="review-rating">★★★☆☆</div>
+        <div class="review-message">Good platform but needs support in Telugu language.</div>
+      </div>
+       <div class="review">
+            <div class="review-name">Sambasivarao(Kakaravada)</div>
+            <div class="review-rating">★★★★☆</div>
+            <div class="review-message">Thanks to Avakash,I found a teacher job in my own village .it help me a lot</div>
+    </div>
+  </div>
+
+  <script>
+    // Simple form logic (no backend)
+    document.querySelector('.review-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert("Thank you for your review! (Form not connected to backend)");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
