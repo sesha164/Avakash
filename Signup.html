@@ -10,7 +10,7 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background: url('images/vt.png') no-repeat center center fixed;
       background-size: cover;
       color: white;
       position: relative;
@@ -43,6 +43,27 @@
       color: #ffdd57;
       text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
     }
+    .logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;         /* Makes it circular */
+  object-fit: cover;          /* Ensures the image fits nicely */
+  border: 2px solid #ffdd57;  /* Optional: border for visual effect */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);  /* Optional: slight shadow */
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffdd57;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
 
     label {
       display: block;
@@ -125,10 +146,16 @@
       h2 {
         font-size: 26px;
       }
+      
     }
   </style>
 </head>
 <body>
+   <div class="logo-title">
+    <img src="images/logo1_resized_256x256.png" alt="Avakash Logo" class="logo-img" />
+    <span class="logo-text">Avakash</span>
+  </div>
+  <!-- 🔵 SIGNUP FORM CONTAINER -->
   <div class="container">
     <h2>Sign Up to Avakash</h2>
     <form id="signup-form">
@@ -156,9 +183,11 @@
 
     <div class="login-link">
       Already have an account? 
-    <a href="login.html">login</a>
+      <a href="login.html">login</a>
     </div>
   </div>
+
+
 
   <!-- Firebase logic -->
   <script type="module" src="javascript\SignUp.js"></script>
