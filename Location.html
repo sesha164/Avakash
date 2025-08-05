@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
   <meta charset="UTF-8">
   <title>Village Live Location</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,164 +59,10 @@
       max-width: 800px;
       border: 2px solid #ccc;
       border-radius: 10px;
-=======
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Avakash - Job Portal</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-  html, body {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url('images/ima.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-  position: relative;
-}
-    /* Dark overlay for contrast */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 0;
-    }
-
-    header {
-      position: relative;
-      z-index: 1;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 30px;
-      background: transparent;
-      align-items: center;
-      font-size: 16px;
-    }
-
-    header .logo {
-      position: absolute;
-      left: 40px;
-      top: 20px;
-      font-size: 28px;
-      font-weight: 700;
-      color: #ffdd57;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: rgba(255, 221, 87, 0.8);
-      color: #000;
-    }
-
-    .profile-icon img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid #ffdd57;
-      cursor: pointer;
-      box-shadow: 0 0 6px #ffdd57;
-      vertical-align: middle;
-    }
-
-    main {
-      position: relative;
-      z-index: 1;
-      height: calc(100vh - 80px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    main h1 {
-      font-size: 56px;
-      margin-bottom: 15px;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-      color: #ffdd57;
-    }
-
-    main p {
-      font-size: 22px;
-      margin-bottom: 40px;
-      max-width: 600px;
-      color: #fff;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 30px;
-    }
-
-    button {
-      cursor: pointer;
-      font-size: 20px;
-      padding: 14px 45px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      user-select: none;
-      background-color: #ffdd57;
-      color: #222;
-    }
-
-    button:hover {
-      background-color: #e6c84f;
-      color: #222;
-    }
-    
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      main h1 {
-        font-size: 36px;
-      }
-      main p {
-        font-size: 16px;
-        max-width: 90%;
-      }
-      .btn-group {
-        flex-direction: column;
-        gap: 20px;
-      }
-      button {
-        width: 180px;
-        font-size: 18px;
-        padding: 12px 0;
-      }
-      header .logo {
-        left: 20px;
-        font-size: 24px;
-      }
-      header {
-        padding: 15px 20px;
-      }
->>>>>>> cc5649d8025922bfaaa47c56554d8baf17bdc5c9
     }
   </style>
 </head>
 <body>
-<<<<<<< HEAD
 <body>
   <header style="width: 100%; padding: 10px 20px; display: flex; justify-content: flex-start; align-items: center;">
      <nav>
@@ -241,47 +86,6 @@
   <script>
     let map = L.map('map').setView([20.5937, 78.9629], 5); // Default: India center
 
-=======
-
-<header>
-  <div class="logo">Avakash</div>
-  <nav>
-    <a href="review.html">Review</a>
-    <a href="about.html">About</a>
-    <a href="Contact Us.html">Contact Us</a>
-    <a class="profile-icon" href="userprofile.html">
-      <img src="Images/profile.png" alt="User Profile" />
-    </a>
-  </nav>
-
-  <script src="scripts.js"></script>
-</header>
-   
-
-  <main>
-    <h1>Welcome to Avakash</h1>
-    <p>Unlock your future with Avakash — where opportunities meet talent</p>
-    <div class="btn-group">
-      <button class="login" onclick="location.href='login.html'">Login</button>
-      <button class="signup" onclick="location.href='signup.html'">Signup</button>
-      
-    </div>
-  </main>
- <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-
-<<<<<<<< HEAD:home.html
-  const firebaseConfig = {
-    apiKey: "AIzaSyDzoiMWqxYKa8UUDkwxN_BDVFYhvICZAA0",
-    authDomain: "jobportal-29f10.firebaseapp.com",
-    projectId: "jobportal-29f10",
-    storageBucket: "jobportal-29f10.appspot.com",
-    messagingSenderId: "913493555435",
-    appId: "1:913493555435:web:836d5428f5802e5a5c66ae",
-    measurementId: "G-W9VQ81HR98"
-========
->>>>>>> cc5649d8025922bfaaa47c56554d8baf17bdc5c9
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
@@ -297,7 +101,6 @@
   }
 
   const allowedLocations = {
-<<<<<<< HEAD
     "dakaram": "dakaram.html",
     "mudinepalli": "mudinepalli.html",
     "koduru": "koduru.html",
@@ -365,36 +168,6 @@
         });
     
   </script>
-=======
-    "dakaram": "Dakaram.html",
-    "mudinepalli": "Mudinepalli.html",
-    "koduru": "Koduru.html",
-    "chigurukota": "Chigurukota.html",
-    "kakaravada": "Kakaravada.html"
->>>>>>>> cc5649d8025922bfaaa47c56554d8baf17bdc5c9:Location.html
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // Function triggered on clicking the profile icon
-  window.checkUserAuthentication = () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // ✅ User is logged in
-        window.location.href = "Userprofile.html";
-      } else {
-        // ❌ Not logged in: Redirect to login or signup
-        const goToLogin = confirm("You need to log in to access your profile. Do you want to log in now?");
-        if (goToLogin) {
-          window.location.href = "Login.html";
-        }
-      }
-    });
-  };
-</script>
-
->>>>>>> cc5649d8025922bfaaa47c56554d8baf17bdc5c9
 
 </body>
 </html>

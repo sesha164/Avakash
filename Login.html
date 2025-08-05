@@ -11,6 +11,25 @@
       padding: 0;
       box-sizing: border-box;
     }
+.logo {
+  display: flex;
+  align-items: left top;
+  justify-content:left top;
+  margin-top: 40px;
+  gap: 10px;
+}
+
+.logo-icon {
+  height: 50px; /* adjust as needed */
+  width: auto;
+}
+
+.logo span {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffdd57;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
 
     html, body {
       height: 100%;
@@ -85,11 +104,11 @@
     }
 
     input[type="submit"]:hover {
-      background-color: #e6c84f;
+      background-color: #4fc3e6;
     }
 
 .google-btn {
-      background-color: white;
+      background-color: rgb(230, 101, 150);
       color: #444;
       font-weight: 600;
       border: none;
@@ -102,6 +121,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       width: 100%;
       justify-content: center;
+      margin-top: 10px;
     }
 
     
@@ -155,6 +175,10 @@
 
 
 <body>
+  <div class="logo">
+  <img src="images/logo1.png" alt="Avakash Logo" class="logo-icon" />
+  <span>Avakash</span>
+  </div>
 
   <div class="container">
     <h2>Login to Avakash</h2>
@@ -168,7 +192,7 @@
       <input type="submit" value="Login" />
     </form>
     
-     <button class="google-btn" onclick="googleLogin()">
+     <button class="google-btn" onclick="googleLogin()" >
   <img src="images/google_resized_16x16.png" alt="Google logo" width="32" height="32" />
   Continue with Google
 </button>

@@ -27,7 +27,6 @@
     }
 
     .job-card {
-      image-rendering: -webkit-optimize-contrast;
       height: 300px;
       border-radius: 12px;
       color: white;
@@ -41,13 +40,18 @@
       cursor: pointer;
       background-size: cover;
       background-position: center;
+      text-decoration: none;
     }
 
     .job-card:hover {
       transform: scale(1.02);
     }
 
-    /* Backgrounds (Use royalty-free images or your own local ones) */
+    a {
+      text-decoration: none;
+    }
+
+    /* Backgrounds */
     .chef        { background-image: url('images/chef.png'); }   
     .teacher     { background-image: url('images/teacher.png'); }
     .dailyworker { background-image: url('images/daily worker.png'); }
@@ -62,14 +66,14 @@
 
   <h1>Available jobs in Mudinepalli</h1>
   <div class="job-grid">
-    <div class="job-card chef">Chef</div>
-    <div class="job-card teacher">Teacher</div>
-    <div class="job-card dailyworker">Daily Worker</div>
-    <div class="job-card poultry">Poultry Farming</div>
-    <div class="job-card clothing">Clothing Store</div>
-    <div class="job-card retail">Retail Worker</div>
-    <div class="job-card millworker">Rice Mill Workers</div>
-    <div class="job-card basket">Basket Weaver</div>
+    <a href="Userprofile.html"><div class="job-card chef">Chef</div></a>
+    <a href="Userprofile.html"><div class="job-card teacher">Teacher</div></a>
+    <a href="Userprofile.html"><div class="job-card dailyworker">Daily Worker</div></a>
+    <a href="Userprofile.html"><div class="job-card poultry">Poultry Farming</div></a>
+    <a href="Userprofile.html"><div class="job-card clothing">Clothing Store</div></a>
+    <a href="Userprofile.html"><div class="job-card retail">Retail Worker</div></a>
+    <a href="Userprofile.html"><div class="job-card millworker">Rice Mill Workers</div></a>
+    <a href="Userprofile.html"><div class="job-card basket">Basket Weaver</div></a>
   </div>
 
 </body>
