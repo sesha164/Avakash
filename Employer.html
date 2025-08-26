@@ -190,14 +190,69 @@
         <input type="file" id="shopPhoto" accept="image/*" />
       </div>
 
-      <div class="form-group">
-        <label for="gps">GPS Location (Latitude, Longitude)</label>
-        <input type="text" id="gps" placeholder="e.g., 28.6139, 77.2090" required />
-      </div>
+
 
       <button type="submit" class="submit-btn">Save Employer Profile</button>
     </form>
   </div>
+  <!-- Firebase App (required) -->
+<script type="module">
+  // Import the functions from Firebase CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+    authDomain: "avakash-4b6ec.firebaseapp.com",
+    projectId: "avakash-4b6ec",
+    storageBucket: "avakash-4b6ec.firebasestorage.app",
+    messagingSenderId: "15657241012",
+    appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+    measurementId: "G-X38XR2NGL4"
+  };
+
+  // Initialize Firebaseg
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Handle form submission
+  document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const employerName = document.getElementById("employerName").value;
+    const address = document.getElementById("address").value;
+    const skills = document.getElementById("skills").value;
+    const ageLimit = document.getElementById("ageLimit").value;
+    const workingHours = document.getElementById("workingHours").value;
+    const salary = document.getElementById("salary").value;
+    const description = document.getElementById("description").value;
+    const contact = document.getElementById("contact").value;
+    const shopPhoto = document.getElementById("shopPhoto").files[0]?.name || "No file uploaded";
+
+    try {
+      await addDoc(collection(db, "employerProfiles"), {
+        employerName,
+        address,
+        skills,
+        ageLimit,
+        workingHours,
+        salary,
+        description,
+        contact,
+        shopPhoto,
+        createdAt: new Date()
+      });
+      alert("✅ Employer Profile saved successfully!");
+      document.querySelector("form").reset();
+    } catch (error) {
+      console.error("❌ Error saving employer profile:", error);
+      alert("Error: " + error.message);
+    }
+  });
+</script>
+
+<script type="module" src="employer.js"></script>
 
 
 

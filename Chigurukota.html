@@ -8,11 +8,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-<<<<<<< HEAD:chigurukota.html
-      background:blueviolet
-=======
-      background: #FFCBA4;
->>>>>>> cc5649d8025922bfaaa47c56554d8baf17bdc5c9:Chigurukota.html
+      background:rgb(137, 212, 231)
     }
 
     h1 {
@@ -20,6 +16,30 @@
       margin-top: 20px;
       color: #333;
     }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffdd57;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    .brand-name{
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffdd57;
+      margin-left: 10px;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
 
     .job-grid {
       display: grid;
@@ -62,16 +82,20 @@
   </style>
 </head>
 <body>
+  <div class="logo-container">
+  <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img"/>
+  <span class="brand-name">Avakash</span>
+  </div>
 
   <h1>Available jobs in Chigurukota</h1>
   <div class="job-grid">
-    <div class="job-card dailyworker">Daily Worker</div>
-    <div class="job-card poultry">Poultry Farming</div>
-    <div class="job-card retail">Retail Worker</div>
-    <div class="job-card tutor">Tutor</div>
-    <div class="job-card milk">Milk Center</div>
-    <div class="job-card saree">Saree Weaver</div>
-    <div class="job-card tailor">Tailor</div>
+      <a href="Userprofile.html"><div class="job-card dailyworker">Daily Worker</div>
+      <a href="Userprofile.html"><div class="job-card poultry">Poultry Farming</div>
+      <a href="Userprofile.html"><div class="job-card retail">Retail Worker</div>
+      <a href="Userprofile.html"><div class="job-card tutor">Tutor</div>
+      <a href="Userprofile.html"><div class="job-card milk">Milk Center</div>
+      <a href="Userprofile.html"><div class="job-card saree">Saree Weaver</div>
+      <a href="Userprofile.html"><div class="job-card tailor">Tailor</div>
   </div>
 
 </body>

@@ -144,14 +144,10 @@
 
       <div class="form-group">
         <label for="education">Education</label>
-        <input type="text" id="education" placeholder="e.g., B.Sc, 12th Pass, Diploma" required>
+        <input type="text" id="education" placeholder="e.g., 10th pass, 12th Pass, Diploma" required>
       </div>
 
-      <div class="form-group">
-        <label for="skills">Skills</label>
-        <textarea id="skills" rows="3" placeholder="e.g., Teaching, Cooking, Driving, Plumbing..." required></textarea>
-      </div>
-
+  
       <div class="form-group">
         <label for="contact">Contact Number</label>
         <input type="tel" id="contact" placeholder="e.g., 9876543210" required>
@@ -159,7 +155,7 @@
 
       <div class="form-group">
         <label for="timings">Preferred Work Timings</label>
-        <input type="text" id="timings" placeholder="e.g., " required>
+        <input type="text" id="timings" placeholder="e.g., 9:00-6:00 " required>
       </div>
       <!-- <div class="from-group">
         <lable for=""
@@ -168,42 +164,60 @@
       <button type="submit" class="submit-btn">Save Profile</button>
     </form>
   </div>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+  <!-- Firebase App (required) -->
+<script type="module">
+  // Import the functions from Firebase CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+  // Your Firebase config
   const firebaseConfig = {
-    apiKey: "AIzaSyDzoiMWqxYKa8UUDkwxN_BDVFYhvICZAA0",
-    authDomain: "jobportal-29f10.firebaseapp.com",
-    projectId: "jobportal-29f10",
-    storageBucket: "jobportal-29f10.appspot.com",
-    messagingSenderId: "913493555435",
-    appId: "1:913493555435:web:836d5428f5802e5a5c66ae"
+    apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+    authDomain: "avakash-4b6ec.firebaseapp.com",
+    projectId: "avakash-4b6ec",
+    storageBucket: "avakash-4b6ec.firebasestorage.app",
+    messagingSenderId: "15657241012",
+    appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+    measurementId: "G-X38XR2NGL4"
   };
 
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
   const db = getFirestore(app);
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+  // Handle form submission
+  document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-        document.getElementById("name").value = userData.name || "";
-        document.getElementById("email").value = userData.email || "";
-      } else {
-        alert("No user data found. Please complete your profile.");
-      }
-    } else {
-      window.location.href = "login.html";
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const education = document.getElementById("education").value;
+    const contact = document.getElementById("contact").value;
+    const timings = document.getElementById("timings").value;
+
+    try {
+      await addDoc(collection(db, "userProfiles"), {
+        name,
+        email,
+        age,
+        gender,
+        education,
+        contact,
+        timings,
+        createdAt: new Date()
+      });
+      alert("✅ Profile saved successfully!");
+    } catch (error) {
+      console.error("❌ Error saving profile:", error);
+      alert("Error: " + error.message);
     }
   });
 </script>
 
+  <!-- Link to your new JS file -->
+<script type="module" src="Userprofile.js"></script>
 
 
 </body>
