@@ -11,13 +11,28 @@
       padding: 0;
       box-sizing: border-box;
     }
-.logo {
-  display: flex;
-  align-items: left top;
-  justify-content:left top;
-  margin-top: 40px;
-  gap: 10px;
-}
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+     .logo-img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffdd57;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .brand-name {
+      margin-left: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffdd57;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+
 
 .logo-icon {
   height: 50px; /* adjust as needed */
@@ -34,12 +49,12 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background: url('images/vt.png') no-repeat center center fixed;
       background-size: cover;
       color: white;
       position: relative;
     }
-
+      
     /* Dark overlay */
     body::before {
       content: "";
@@ -108,7 +123,7 @@
     }
 
 .google-btn {
-      background-color: rgb(230, 101, 150);
+      background-color: rgb(255, 255, 255);
       color: #444;
       font-weight: 600;
       border: none;
@@ -140,7 +155,10 @@
     .signup-link a:hover {
       text-decoration: underline;
     }
-
+     @media (max-width: 768px) {
+      .brand-name {
+        font-size: 20px;
+      }}
     @media (max-width: 480px) {
       .container {
         margin: 60px 20px;
@@ -175,10 +193,11 @@
 
 
 <body>
-  <div class="logo">
-  <img src="images/logo1.png" alt="Avakash Logo" class="logo-icon" />
-  <span>Avakash</span>
-  </div>
+  
+  <div class="logo-container">
+  <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img"/>
+  <span class="brand-name">Avakash</span>
+</div>
 
   <div class="container">
     <h2>Login to Avakash</h2>

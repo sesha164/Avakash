@@ -9,14 +9,15 @@ import {
 
 // ✅ Firebase Config
 const firebaseConfig = {
-  apiKey: "AIzaSyDzoiMWqxYKa8UUDkwxN_BDVFYhvICZAA0",
-  authDomain: "jobportal-29f10.firebaseapp.com",
-  projectId: "jobportal-29f10",
-  storageBucket: "jobportal-29f10.appspot.com",
-  messagingSenderId: "913493555435",
-  appId: "1:913493555435:web:836d5428f5802e5a5c66ae",
-  measurementId: "G-W9VQ81HR98"
+  apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+  authDomain: "avakash-4b6ec.firebaseapp.com",
+  projectId: "avakash-4b6ec",
+  storageBucket: "avakash-4b6ec.firebasestorage.app",
+  messagingSenderId: "15657241012",
+  appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+  measurementId: "G-X38XR2NGL4"
 };
+
 
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);

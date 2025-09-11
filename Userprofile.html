@@ -141,6 +141,7 @@
           <option>Prefer not to say</option>
         </select>
       </div>
+      
 
       <div class="form-group">
         <label for="education">Education</label>
@@ -193,7 +194,9 @@
     const email = document.getElementById("email").value;
     const age = document.getElementById("age").value;
     const gender = document.getElementById("gender").value;
+    const Villagename = document.getElementById("Villagename").value;
     const education = document.getElementById("education").value;
+    const skills = document.getElementById("skills").value;
     const contact = document.getElementById("contact").value;
     const timings = document.getElementById("timings").value;
 
@@ -203,7 +206,9 @@
         email,
         age,
         gender,
+        Villagename,
         education,
+        skills,
         contact,
         timings,
         createdAt: new Date()

@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Reviews - Avakash</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
       margin: 0;
@@ -55,7 +57,7 @@
       border-radius: 4px;
       margin-top: 20px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      
     }
 
     button:hover {
@@ -108,38 +110,98 @@
 
       <button type="submit">Submit Review</button>
     </form>
-
-    
-    <div class="reviews">
-      <div class="review">
-        <div class="review-name">Suman Devi (chinapalaparru)</div>
-        <div class="review-rating">★★★★☆</div>
-        <div class="review-message">Thanks to Avakash, I found stitching work in my own village. No need to travel far!</div>
-      </div>
-      <div class="review">
-        <div class="review-name">Ravi Kumar (Guraja)</div>
-        <div class="review-rating">★★★★★</div>
-        <div class="review-message">Easy to use and job updates come via SMS. Very helpful!</div>
-      </div>
-      <div class="review">
-        <div class="review-name">Lalitha (Mudenepalli)</div>
-        <div class="review-rating">★★★☆☆</div>
-        <div class="review-message">Good platform but needs support in Telugu language.</div>
-      </div>
-       <div class="review">
-            <div class="review-name">Sambasivarao(Kakaravada)</div>
-            <div class="review-rating">★★★★☆</div>
-            <div class="review-message">Thanks to Avakash,I found a teacher job in my own village .it help me a lot</div>
-    </div>
+ <div class="reviews">
   </div>
+<!-- ✅ Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-  <script>
-    // Simple form logic (no backend)
-    document.querySelector('.review-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert("Thank you for your review! (Form not connected to backend)");
-      this.reset();
+<script>
+  // 🔹 Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+    authDomain: "avakash-4b6ec.firebaseapp.com",
+    projectId: "avakash-4b6ec",
+    storageBucket: "avakash-4b6ec.appspot.com",  // ✅ fixed (use .appspot.com not .firebasestorage.app)
+    messagingSenderId: "15657241012",
+    appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+    measurementId: "G-X38XR2NGL4"
+  };
+
+  // ✅ Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const form = document.querySelector('.review-form');
+  const reviewsContainer = document.querySelector('.reviews');
+
+  // 🔹 Save review to Firestore
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const rating = parseFloat(document.getElementById("rating").value);
+    const message = document.getElementById("message").value;
+
+    try {
+      await db.collection("reviews").add({
+        name: name,
+        email: email,
+        rating: rating,
+        message: message,
+        timestamp: new Date()
+      });
+
+      alert("✅ Review submitted successfully!");
+      form.reset();
+    } catch (error) {
+      console.error("Error adding review: ", error);
+      alert("❌ Failed to submit review. Check console.");
+    }
+  });
+
+  // 🔹 Escape HTML
+  function escapeHTML(str = "") {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  // 🔹 Render stars based on rating
+  function renderStars(rating) {
+    const num = Math.max(0, Math.min(5, Number(rating) || 0));
+    const rounded = Math.round(num * 2) / 2; // round to nearest .5
+    const full = Math.floor(rounded);
+    const half = (rounded % 1) !== 0 ? 1 : 0;
+    const empty = 5 - full - half;
+
+    return `
+      <span class="stars" aria-label="Rating ${rounded} out of 5">
+        ${'<i class="fa-solid fa-star"></i>'.repeat(full)}
+        ${half ? '<i class="fa-solid fa-star-half-stroke"></i>' : ''}
+        ${'<i class="fa-regular fa-star"></i>'.repeat(empty)}
+        <span class="rating-number">${rounded.toFixed(1)}</span>
+      </span>
+    `;
+  }
+
+  // 🔹 Load and display reviews in real-time
+  db.collection("reviews").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+    reviewsContainer.innerHTML = "";
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const reviewDiv = `
+        <div class="review">
+          <div class="review-name">${escapeHTML(data.name)}</div>
+          <div class="review-rating">${renderStars(data.rating)}</div>
+          <div class="review-message">${escapeHTML(data.message)}</div>
+        </div>`;
+      reviewsContainer.innerHTML += reviewDiv;
     });
-  </script>
+  });
+</script>  
 </body>
 </html>
