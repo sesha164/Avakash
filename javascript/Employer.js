@@ -24,6 +24,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   // Get form values
   const employerName = document.getElementById("employerName").value;
   const address = document.getElementById("address").value;
+  const village = document.getElementById("village").value;
   const skills = document.getElementById("skills").value;
   const ageLimit = document.getElementById("ageLimit").value;
   const workingHours = document.getElementById("workingHours").value;
@@ -37,6 +38,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
     await addDoc(collection(db, "employers"), {
       employerName,
       address,
+      village,
       skills,
       ageLimit,
       workingHours,
