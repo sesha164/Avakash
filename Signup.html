@@ -44,26 +44,24 @@
       text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
     }
     .logo-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.logo-img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;         /* Makes it circular */
-  object-fit: cover;          /* Ensures the image fits nicely */
-  border: 2px solid #ffdd57;  /* Optional: border for visual effect */
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);  /* Optional: slight shadow */
-}
-
-.logo-text {
-  font-size: 28px;
-  font-weight: 700;
-  color: #ffdd57;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
-}
-
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffdd57;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffdd57;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
 
     label {
       display: block;
@@ -136,18 +134,6 @@
     .login-link a:hover {
       text-decoration: underline;
     }
-
-    @media (max-width: 480px) {
-      .container {
-        margin: 40px 20px;
-        padding: 30px 20px;
-      }
-
-      h2 {
-        font-size: 26px;
-      }
-      
-    }
   </style>
 </head>
 <body>
@@ -155,6 +141,7 @@
     <img src="images/logo1_resized_256x256.png" alt="Avakash Logo" class="logo-img" />
     <span class="logo-text">Avakash</span>
   </div>
+
   <!-- 🔵 SIGNUP FORM CONTAINER -->
   <div class="container">
     <h2>Sign Up to Avakash</h2>
@@ -176,7 +163,7 @@
 
     <hr style="margin: 20px 0; border-color: rgba(255,255,255,0.3);">
 
-    <button class="google-btn" onclick="googleLogin()">
+    <button class="google-btn" id="googleLogin">
       <img src="images/google_resized_16x16.png" alt="Google logo" />
       Continue with Google
     </button>
@@ -187,10 +174,65 @@
     </div>
   </div>
 
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
+    // 🔹 Your Firebase Config (replace with your own values from Firebase Console)
+   const firebaseConfig = {
+  apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+  authDomain: "avakash-4b6ec.firebaseapp.com",
+  projectId: "avakash-4b6ec",
+  storageBucket: "avakash-4b6ec.firebasestorage.app",
+  messagingSenderId: "15657241012",
+  appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+  measurementId: "G-X38XR2NGL4"
+};
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  <!-- Firebase logic -->
-  <script type="module" src="javascript\SignUp.js"></script>
+    // 🔹 SIGNUP with Email/Password
+    const signupForm = document.getElementById("signup-form");
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fullname = document.getElementById("fullname").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: fullname });
+        alert("Signup successful! 🎉");
+        window.location.href = "Login.html"; // Redirect to login after signup
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+
+    // 🔹 Google Sign-In
+    const googleBtn = document.getElementById("googleLogin");
+    const provider = new GoogleAuthProvider();
+
+    googleBtn.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        alert("Google Sign-In successful! 🎉");
+        window.location.href = "Homepage.html"; // Redirect after success
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
 

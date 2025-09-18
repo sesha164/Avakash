@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Avakash</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url("https://images.unsplash.com/photo-1506765515384-028b60a970df") no-repeat center center/cover;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 0;
+    }
+
+    header {
+      background: rgba(74,144,226,0.9);
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    h2, h3 { text-align: center; color: #333; }
+    .contact-info { text-align: center; margin-bottom: 20px; }
+
+    form { display: flex; flex-direction: column; }
+    label { margin: 10px 0 5px; font-weight: bold; color: #333; }
+    input, textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 100%;
+      background: #f9f9f9;
+    }
+    textarea { resize: vertical; min-height: 100px; }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      border: none;
+      background: #4A90E2;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover { background: #357ABD; transform: scale(1.05); }
+
+    .messages { margin-top: 30px; }
+    .message {
+      background: #f9f9f9;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      position: relative;
+      border-left: 5px solid #4A90E2;
+    }
+    .delete-btn {
+      position: absolute;
+      right: 10px; top: 10px;
+      background: red; color: #fff;
+      border: none; padding: 5px 8px;
+      border-radius: 5px; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Avakash - Contact Us</h1>
+</header>
+
+<div class="contact-container">
+  <h2>Get in Touch</h2>
+
+  <!-- Contact Info -->
+  <div class="contact-info">
+    <p><b>Email:</b> support@avakash.com</p>
+    <p><b>Phone:</b> +8331871529</p>
+    <p><b>Address:</b> Gudlavalleru,krishna dist,Andrapradesh, India</p>
+  </div>
+
+  <!-- Google Auth Section -->
+  <div id="auth-section" style="text-align:center; margin-bottom:20px;">
+    <button id="google-login">Continue with Google</button>
+    <button id="logout" style="display:none;">Logout</button>
+    <p id="user-info"></p>
+  </div>
+
+  <!-- Contact Form -->
+  <form id="contact-form" style="display:none;">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Your Email</label>
+    <input type="email" id="email" required>
+
+    <label for="message">Message</label>
+    <textarea id="message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+
+  <!-- Submitted Messages -->
+  <div class="messages">
+    <h3>Submitted Messages</h3>
+    <div id="messages-list"></div>
+  </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+<script>
+  // 🔹 Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+    authDomain: "avakash-4b6ec.firebaseapp.com",
+    projectId: "avakash-4b6ec",
+    storageBucket: "avakash-4b6ec.firebasestorage.app",
+    messagingSenderId: "15657241012",
+    appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+    measurementId: "G-X38XR2NGL4"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+
+  // DOM elements
+  const loginBtn = document.getElementById("google-login");
+  const logoutBtn = document.getElementById("logout");
+  const userInfo = document.getElementById("user-info");
+  const form = document.getElementById("contact-form");
+  const messagesList = document.getElementById("messages-list");
+
+  // Google Login
+  loginBtn.onclick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  };
+
+  // Logout
+  logoutBtn.onclick = () => auth.signOut();
+
+  // Auth state change
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+      userInfo.innerText = `Logged in as: ${user.displayName} (${user.email})`;
+      form.style.display = "block";
+      document.getElementById("name").value = user.displayName;
+      document.getElementById("email").value = user.email;
+    } else {
+      loginBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+      userInfo.innerText = "";
+      form.style.display = "none";
+    }
+  });
+
+  // Form submission
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user) return alert("You must be logged in!");
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    try {
+      await db.collection("contacts").add({
+        name, email, message, uid: user.uid, timestamp: new Date()
+      });
+      alert("✅ Message submitted successfully!");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed to submit message.");
+    }
+  });
+
+  // Display messages
+  db.collection("contacts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+    messagesList.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const div = document.createElement("div");
+      div.className = "message";
+      div.innerHTML = `
+        <strong>${data.name}</strong> (${data.email})<br>
+        <p>${data.message}</p>
+        <small>${data.timestamp.toDate().toLocaleString()}</small>
+      `;
+      const currentUser = auth.currentUser;
+      if (currentUser && currentUser.email === "support@avakash.com") {
+        const delBtn = document.createElement("button");
+        delBtn.innerText = "Delete";
+        delBtn.className = "delete-btn";
+        delBtn.onclick = () => db.collection("contacts").doc(doc.id).delete();
+        div.appendChild(delBtn);
+      }
+      messagesList.appendChild(div);
+    });
+  });
+</script>
+
+</body>
+</html>

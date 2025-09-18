@@ -221,6 +221,58 @@
      <a href="signup.html">signup</a>       
     </div>
   </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // 🔹 Your Firebase Config (same as in signup.html)
+    
+    const firebaseConfig = {
+  apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+  authDomain: "avakash-4b6ec.firebaseapp.com",
+  projectId: "avakash-4b6ec",
+  storageBucket: "avakash-4b6ec.firebasestorage.app",
+  messagingSenderId: "15657241012",
+  appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+  measurementId: "G-X38XR2NGL4"
+};
+
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // 🔹 Login with Email/Password
+    const loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful! 🎉");
+        window.location.href = "Homepage.html"; // Redirect to home/dashboard
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+
+    // 🔹 Google Sign-In
+    const googleBtn = document.getElementById("googleLogin");
+    const provider = new GoogleAuthProvider();
+
+    googleBtn.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        alert("Google Sign-In successful! 🎉");
+        window.location.href = "Homepage.html";
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+  </script>
 <script type="module" src="javascript/login.js"></script>
 
 
