@@ -28,59 +28,70 @@
     .container {
       position: relative;
       z-index: 1;
-      max-width: 400px;
+      max-width: 450px;
       margin: 80px auto;
       background: rgba(0, 0, 0, 0.7);
       padding: 40px 30px;
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+      text-align: center;
     }
 
     h2 {
-      text-align: center;
       margin-bottom: 30px;
       font-size: 32px;
       color: #ffdd57;
       text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
     }
+
     .logo-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.logo-img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;         /* Makes it circular */
-  object-fit: cover;          /* Ensures the image fits nicely */
-  border: 2px solid #ffdd57;  /* Optional: border for visual effect */
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);  /* Optional: slight shadow */
-}
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .logo-img {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffdd57;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    }
 
-.logo-text {
-  font-size: 28px;
-  font-weight: 700;
-  color: #ffdd57;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
-}
-
+    .logo-text {
+      font-size: 28px;
+      margin-left: 10px;
+      font-weight: 700;
+      color: #ffdd57;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
 
     label {
       display: block;
-      margin-bottom: 8px;
+      margin: 12px 0 6px;
       font-weight: 600;
       font-size: 16px;
+      text-align: left;
     }
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    select {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
+      padding: 14px;
+      margin-bottom: 18px;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 18px;
+      text-align: left;
+    }
+
+    select {
+      font-size: 20px;   /* make User/Employer bigger */
+      font-weight: 600;
     }
 
     input[type="submit"] {
@@ -89,20 +100,20 @@
       background-color: #ffdd57;
       border: none;
       border-radius: 8px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       color: #222;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(255, 221, 87, 0.7);
       transition: background-color 0.3s ease;
+      margin-top: 10px;
     }
 
     input[type="submit"]:hover {
       background-color: #e6c84f;
     }
-
     .google-btn {
-      background-color: white;
+      background-color: rgb(65, 247, 237);
       color: #444;
       font-weight: 600;
       border: none;
@@ -121,10 +132,11 @@
       margin-right: 20px;
     }
 
+
     .login-link {
       margin-top: 20px;
       text-align: center;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .login-link a {
@@ -136,44 +148,33 @@
     .login-link a:hover {
       text-decoration: underline;
     }
-
-    @media (max-width: 480px) {
-      .container {
-        margin: 40px 20px;
-        padding: 30px 20px;
-      }
-
-      h2 {
-        font-size: 26px;
-      }
-      
-    }
   </style>
 </head>
 <body>
-   <div class="logo-title">
+  <div class="logo-title">
     <img src="images/logo1_resized_256x256.png" alt="Avakash Logo" class="logo-img" />
     <span class="logo-text">Avakash</span>
   </div>
+
   <!-- 🔵 SIGNUP FORM CONTAINER -->
   <div class="container">
     <h2>Sign Up to Avakash</h2>
     <form id="signup-form">
       <label for="fullname">Full Name</label>
-      <input type="text" id="fullname" name="fullname" placeholder="Your full name" required />
+      <input type="text" id="fullname" required />
 
       <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="example@mail.com" required />
+      <input type="email" id="email" required />
 
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Create a password" required />
+      <input type="password" id="password" required />
 
       <label for="confirm-password">Confirm Password</label>
-      <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required />
+      <input type="password" id="confirm-password" required />
 
+      
       <input type="submit" value="Sign Up" />
     </form>
-
     <hr style="margin: 20px 0; border-color: rgba(255,255,255,0.3);">
 
     <button class="google-btn" onclick="googleLogin()">
@@ -181,16 +182,12 @@
       Continue with Google
     </button>
 
+
     <div class="login-link">
-      Already have an account? 
-      <a href="login.html">login</a>
+      Already have an account? <a href="login.html">Login</a>
     </div>
   </div>
 
-
-
-  <!-- Firebase logic -->
-  <script type="module" src="javascript\SignUp.js"></script>
+   <script type="module" src="javascript/SignUp.js"></script>
 </body>
 </html>
-

@@ -1,37 +1,15 @@
-// signup.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup
-} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+// SignUp.js
+import { auth, db } from "./firebase.js";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } 
+  from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { doc, setDoc } 
+  from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-// ✅ Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyDzoiMWqxYKa8UUDkwxN_BDVFYhvICZAA0",
-  authDomain: "jobportal-29f10.firebaseapp.com",
-  projectId: "jobportal-29f10",
-  storageBucket: "jobportal-29f10.firebasestorage.app",
-  messagingSenderId: "913493555435",
-  appId: "1:913493555435:web:836d5428f5802e5a5c66ae",
-  measurementId: "G-W9VQ81HR98"  
-};
-
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-
-// ✅ Google Provider Setup with "force choose account"
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
-  prompt: "select_account"
-});
-
-// ✅ Email/Password Sign-Up
-document.getElementById("signup-form").addEventListener("submit", (e) => {
+// 🔹 Handle Email/Password Signup
+document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  const fullname = document.getElementById("fullname").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirm-password").value;
@@ -40,33 +18,48 @@ document.getElementById("signup-form").addEventListener("submit", (e) => {
     alert("❌ Passwords do not match!");
     return;
   }
+  try {
+    // ✅ Create user in Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      alert("✅ Signup successful! Welcome, " + user.email);
+    // ✅ Update display name
+    await updateProfile(user, { displayName: fullname });
 
-      // Optional: Redirect or save more info
-      // window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      console.error("❌ Signup error:", error.message);
-      alert("Signup failed: " + error.message);
+    // ✅ Store user profile in Firestore
+    await setDoc(doc(db, "userProfiles", user.uid), {
+      fullname,
+      email,
+      createdAt: new Date().toISOString(),
     });
+
+    alert("✅ Signup successful! Please login.");
+    window.location.href = "login.html"; // redirect to login page
+  } catch (error) {
+    alert("❌ Error: " + error.message);
+    console.error(error);
+  }
 });
 
-// ✅ Google Sign-In
-window.googleLogin = () => {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      alert("✅ Signed in as " + user.displayName);
+// 🔹 Handle Google Signup/Login
+window.googleLogin = async function () {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
 
-      // Optional: Redirect to dashboard or store info
-      // window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      console.error("❌ Google sign-in error:", error);
-      alert("Google sign-in failed: " + error.message);
-    });
+    // ✅ Save Google user in Firestore
+    await setDoc(doc(db, "userProfiles", user.uid), {
+      fullname: user.displayName,
+      email: user.email,
+      profilePic: user.photoURL,
+      createdAt: new Date().toISOString(),
+    }, { merge: true });
+
+    alert("✅ Google sign-up successful!");
+    window.location.href = "homepage.html";
+  } catch (error) {
+    alert("❌ Google login error: " + error.message);
+    console.error(error);
+  }
 };

@@ -65,24 +65,52 @@
       text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
     }
 
-    /* Navigation */
-    nav {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+    /* Dropdown Navigation */
+    .dropdown {
+      position: relative;
+      display: inline-block;
     }
 
-    nav a {
+    .dropbtn {
+      background-color: transparent;
       color: white;
-      text-decoration: none;
-      padding: 6px 12px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      padding: 8px 14px;
       border-radius: 4px;
-      transition: background-color 0.3s ease;
     }
 
-    nav a:hover {
+    .dropbtn:hover {
       background-color: rgba(255, 221, 87, 0.8);
       color: #000;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
     }
 
     .profile-icon img {
@@ -93,6 +121,7 @@
       cursor: pointer;
       box-shadow: 0 0 6px #ffdd57;
       vertical-align: middle;
+      margin-left: 20px;
     }
 
     main {
@@ -151,11 +180,6 @@
         font-size: 20px;
       }
 
-      nav {
-        justify-content: center;
-        gap: 15px;
-      }
-
       main h1 {
         font-size: 32px;
       }
@@ -185,16 +209,26 @@
       <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img" />
       <span class="brand-name">Avakash</span>
     </div>
-    <nav>
-      <a href="review.html">Review</a>
-      <a href="about.html">About</a>
-      <a href="Contact Us.html">Contact Us</a>
-      <a href="Dashboard.html">Dashboard</a>
-      <a class="profile-icon" href="#" onclick="handleProfileClick()">
+
+    <!-- Dropdown menu -->
+    <div style="display: flex; align-items: center;">
+      <div class="dropdown">
+        <button class="dropbtn">Menu ▾</button>
+        <div class="dropdown-content">
+          <a href="review.html">Review</a>
+          <a href="about.html">About</a>
+          <a href="Contact Us.html">Contact Us</a>
+          <a href="Dashboard.html">Dashboard</a>
+        </div>
+      </div>
+
+      <!-- Profile icon stays on the right -->
+      <a class="profile-icon" href="#" >
         <img src="Images/profile.png" alt="User Profile" />
       </a>
-    </nav>
+    </div>
   </header>
+
   <main>
     <h1>Welcome to Avakash</h1>
     <p>Unlock your future with Avakash — where opportunities meet talent</p>
