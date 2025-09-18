@@ -141,10 +141,18 @@
           <option>Prefer not to say</option>
         </select>
       </div>
+      <div class="form-group">
+        <lable for="Villagename">Villagename</lable>
+        <input type="text" id="Villagename">
+      </div>
 
       <div class="form-group">
         <label for="education">Education</label>
         <input type="text" id="education" placeholder="e.g., 10th pass, 12th Pass, Diploma" required>
+      </div>
+      <div class="form-group">
+        <label for="skills">Skills</label>
+        <textarea id="skills" rows="3" placeholder="e.g., Teaching, Cooking.." required></textarea>
       </div>
 
   
@@ -161,16 +169,17 @@
         <lable for=""
       </div> -->
 
-      <button type="submit" class="submit-btn">Save Profile</button>
+      <button type="submit" class="submit-btn">Apply Job</button>
     </form>
   </div>
   <!-- Firebase App (required) -->
 <script type="module">
-  // Import the functions from Firebase CDN
+  // Import Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-  // Your Firebase config
+  // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
     authDomain: "avakash-4b6ec.firebaseapp.com",
@@ -181,11 +190,12 @@
     measurementId: "G-X38XR2NGL4"
   };
 
-  // Initialize Firebase
+  // Init Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const auth = getAuth(app);
 
-  // Handle form submission
+  // Handle Apply Job
   document.querySelector("form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -193,24 +203,43 @@
     const email = document.getElementById("email").value;
     const age = document.getElementById("age").value;
     const gender = document.getElementById("gender").value;
+    const Villagename = document.getElementById("Villagename").value;
     const education = document.getElementById("education").value;
+    const skills = document.getElementById("skills").value;
     const contact = document.getElementById("contact").value;
     const timings = document.getElementById("timings").value;
 
     try {
-      await addDoc(collection(db, "userProfiles"), {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("⚠ Please login first!");
+        window.location.href = "Login.html";
+        return;
+      }
+
+      // Save Job Application
+      await addDoc(collection(db, "applications"), {
+        uid: user.uid,
         name,
         email,
         age,
         gender,
+        Villagename,
         education,
+        skills,
         contact,
         timings,
-        createdAt: new Date()
+        status: "Pending",
+        appliedAt: new Date()
       });
-      alert("✅ Profile saved successfully!");
+
+      alert("✅ Job applied successfully!");
+
+      // 👉 Redirect to Applied Jobs page
+      window.location.href = "Appliedjob.html";
+
     } catch (error) {
-      console.error("❌ Error saving profile:", error);
+      console.error("❌ Error applying job:", error);
       alert("Error: " + error.message);
     }
   });

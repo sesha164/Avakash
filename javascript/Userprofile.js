@@ -13,7 +13,9 @@ form.addEventListener("submit", async (e) => {
   const email = document.getElementById("email").value;
   const age = parseInt(document.getElementById("age").value);
   const gender = document.getElementById("gender").value;
+   const Villagename = document.getElementById("Villagename").value;
   const education = document.getElementById("education").value;
+   const skills = document.getElementById("skills").value;
   const contact = document.getElementById("contact").value;
   const timings = document.getElementById("timings").value;
 
@@ -23,7 +25,9 @@ form.addEventListener("submit", async (e) => {
       Email: email,
       Age: age,
       Gender: gender,
+      Villagename:Villagename,
       Education: education,
+      skills:skills,
       Contact: contact,
       Timings: timings,
       CreatedAt: new Date() // optional timestamp
