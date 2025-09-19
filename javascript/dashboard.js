@@ -1,8 +1,15 @@
 // javascript/dashboard.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
@@ -11,7 +18,7 @@ const firebaseConfig = {
   storageBucket: "avakash-4b6ec.firebasestorage.app",
   messagingSenderId: "15657241012",
   appId: "1:15657241012:web:f24eac84b699b290c04ae1",
-  measurementId: "G-X38XR2NGL4"
+  measurementId: "G-X38XR2NGL4",
 };
 
 // Init Firebase
@@ -50,9 +57,9 @@ onAuthStateChanged(auth, async (user) => {
         alert("Failed to load profile.");
       }
     });
-
   } else {
     alert("No user logged in. Redirecting to login...");
-    window.location.href = "Login.html";
+    window.location.href =
+      "                                                                                                                                                                                                                                                           ";
   }
 });
