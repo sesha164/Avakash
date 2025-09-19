@@ -1,9 +1,15 @@
 // SignUp.js
 import { auth, db } from "./firebase.js";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } 
-  from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-import { doc, setDoc } 
-  from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import {
+  doc,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
 // ✅ Create Google provider (global, accessible everywhere)
 const provider = new GoogleAuthProvider();
@@ -24,7 +30,11 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
 
   try {
     // ✅ Create user in Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const user = userCredential.user;
 
     // ✅ Update display name
@@ -51,16 +61,20 @@ window.googleLogin = async function () {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    await setDoc(doc(db, "userProfiles", user.uid), {
-      name: user.displayName,
-      email: user.email,
-      profilePic: user.photoURL,
-      lastLogin: new Date().toISOString(),
-      role: "user"
-    }, { merge: true });
+    await setDoc(
+      doc(db, "userProfiles", user.uid),
+      {
+        name: user.displayName,
+        email: user.email,
+        profilePic: user.photoURL,
+        lastLogin: new Date().toISOString(),
+        role: "user",
+      },
+      { merge: true }
+    );
 
     console.log("✅ Google login successful:", user.email);
-    window.location.href = "homepage.html";
+    window.location.href = "index.html";
   } catch (error) {
     alert("❌ Google login failed: " + error.message);
     console.error(error);
