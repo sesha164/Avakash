@@ -53,6 +53,6 @@ onAuthStateChanged(auth, async (user) => {
 
   } else {
     alert("No user logged in. Redirecting to login...");
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
   }
 });
