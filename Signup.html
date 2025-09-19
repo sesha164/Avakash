@@ -111,23 +111,12 @@
       background-color: #e6c84f;
     }
     .google-btn {
-      background-color: rgb(65, 247, 237);
-      color: #444;
-      font-weight: 600;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 20px;
-      display: inline-flex;
-      align-items: center;
+      background-color: rgb(187, 171, 177);
+      color: #444; font-weight: 600; border: none;
+      padding: 12px 20px; border-radius: 6px; cursor: pointer;
+      font-size: 20px; display: inline-flex; align-items: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      width: 100%;
-      justify-content: center;
-    }
-
-    .google-btn img {
-      margin-right: 20px;
+      width: 100%; justify-content: center; margin-top: 10px;
     }
 
 
@@ -175,20 +164,18 @@
     </form>
     <hr style="margin: 20px 0; border-color: rgba(255,255,255,0.3);">
 
-    <button class="google-btn" id="googleLogin">
-      <img src="images/google_resized_16x16.png" alt="Google logo" />
+    <button class="google-btn" onclick="googleLogin()">
+      <img src="images/google_resized_16x16.png" alt="Google logo" width="32" height="32" />
       Continue with Google
     </button>
 
 
     <div class="login-link">
-      Already have an account? <a href="lo.html">Login</a>
+      Already have an account? <a href="Login.html">Login</a>
     </div>
   </div>
-
-
-
-  <!-- Firebase logic -->
-  <script type="module" src="javascript\SignUp.js"></script>
+ <!-- Firebase logic -->
+  <script type="module" src="s.js"></script>
 </body>
+
 </html>
