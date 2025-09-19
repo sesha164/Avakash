@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employer Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+  
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+      color: #444;
+    }
+
+    #jobsList {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .job-card {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .job-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .job-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #2c3e50;
+    }
+
+    .job-card p {
+      margin: 5px 0 15px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .applicant {
+      background: #f8f9fa;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .applicant b {
+      color: #333;
+    }
+
+    .applicant span {
+      margin-left: 10px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .accept {
+      background: #28a745;
+      color: white;
+    }
+
+    .reject {
+      background: #dc3545;
+      color: white;
+    }
+
+    .accept:hover {
+      background: #218838;
+    }
+
+    .reject:hover {
+      background: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Employer Dashboard</h1>
+  </header>
+
+  <div id="jobsList"></div>
+
+  <script>
+    // ✅ Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+      authDomain: "avakash-4b6ec.firebaseapp.com",
+      projectId: "avakash-4b6ec",
+      storageBucket: "avakash-4b6ec.appspot.com",
+      messagingSenderId: "15657241012",
+      appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+      measurementId: "G-X38XR2NGL4"
+    };
+
+    // ✅ Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const employerId = "CURRENT_EMPLOYER_UID"; // replace with logged-in employer UID
+
+    // Fetch jobs posted by this employer
+    async function loadEmployerJobs() {
+      const jobsSnapshot = await db.collection("jobs").where("employerId", "==", employerId).get();
+      const jobsList = document.getElementById("jobsList");
+      jobsList.innerHTML = "";
+
+      jobsSnapshot.forEach(async (doc) => {
+        const job = doc.data();
+        const jobCard = document.createElement("div");
+        jobCard.classList.add("job-card");
+        jobCard.innerHTML = `
+          <h2>${job.title}</h2>
+          <p>${job.description}</p>
+          <h4>Applicants:</h4>
+          <div id="applicants-${doc.id}">Loading...</div>
+        `;
+        jobsList.appendChild(jobCard);
+
+        // Load applications for this job
+        const appsSnapshot = await db.collection("applications")
+          .where("jobId", "==", doc.id)
+          .get();
+
+        const appsDiv = document.getElementById(`applicants-${doc.id}`);
+        appsDiv.innerHTML = "";
+
+        appsSnapshot.forEach(appDoc => {
+          const app = appDoc.data();
+          const applicantDiv = document.createElement("div");
+          applicantDiv.classList.add("applicant");
+          applicantDiv.innerHTML = `
+            <b>${app.userName}</b> - ${app.userEmail} 
+            <span>Status: ${app.status}</span>
+            <div class="buttons">
+              <button class="accept">Accept</button>
+              <button class="reject">Reject</button>
+            </div>
+          `;
+
+          // ✅ Handle status update
+          applicantDiv.querySelector(".accept").onclick = () => {
+            db.collection("applications").doc(appDoc.id).update({ status: "Accepted" });
+            alert("Application Accepted!");
+          };
+          applicantDiv.querySelector(".reject").onclick = () => {
+            db.collection("applications").doc(appDoc.id).update({ status: "Rejected" });
+            alert("Application Rejected!");
+          };
+
+          appsDiv.appendChild(applicantDiv);
+        });
+      });
+    }
+
+    loadEmployerJobs();
+  </script>
+</body>
+</html>

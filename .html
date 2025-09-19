@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employer Dashboard</title>
+
+  <!-- Firebase v9 Modular -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs, doc, updateDoc } 
+      from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } 
+      from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+    // ✅ Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+      authDomain: "avakash-4b6ec.firebaseapp.com",
+      projectId: "avakash-4b6ec",
+      storageBucket: "avakash-4b6ec.appspot.com",
+      messagingSenderId: "15657241012",
+      appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+      measurementId: "G-X38XR2NGL4"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const jobsList = document.getElementById("jobsList");
+
+    // ✅ Load Employer Jobs
+    async function loadEmployerJobs(employerId) {
+      const q = query(collection(db, "jobs"), where("employerId", "==", employerId));
+      const querySnapshot = await getDocs(q);
+
+      jobsList.innerHTML = "";
+
+      for (const jobDoc of querySnapshot.docs) {
+        const job = jobDoc.data();
+        const jobId = jobDoc.id;
+
+        const jobCard = document.createElement("div");
+        jobCard.classList.add("job-card");
+        jobCard.innerHTML = `
+          <h2>${job.title}</h2>
+          <p>${job.description}</p>
+          <h4>Applicants:</h4>
+          <div id="applicants-${jobId}">Loading...</div>
+        `;
+        jobsList.appendChild(jobCard);
+
+        // Load Applications for this job
+        const appsQuery = query(collection(db, "applications"), where("jobId", "==", jobId));
+        const appsSnapshot = await getDocs(appsQuery);
+
+        const appsDiv = document.getElementById(`applicants-${jobId}`);
+        appsDiv.innerHTML = "";
+
+        appsSnapshot.forEach(appDoc => {
+          const app = appDoc.data();
+          const applicantDiv = document.createElement("div");
+          applicantDiv.classList.add("applicant");
+          applicantDiv.innerHTML = `
+            <b>${app.userName}</b> - ${app.userEmail} 
+            <span> | Status: ${app.status}</span><br>
+            <button class="accept">Accept</button>
+            <button class="reject">Reject</button>
+          `;
+
+          // ✅ Handle status update
+          applicantDiv.querySelector(".accept").onclick = async () => {
+            await updateDoc(doc(db, "applications", appDoc.id), { status: "Accepted" });
+            alert("Application Accepted!");
+            loadEmployerJobs(employerId); // refresh
+          };
+          applicantDiv.querySelector(".reject").onclick = async () => {
+            await updateDoc(doc(db, "applications", appDoc.id), { status: "Rejected" });
+            alert("Application Rejected!");
+            loadEmployerJobs(employerId); // refresh
+          };
+
+          appsDiv.appendChild(applicantDiv);
+        });
+      }
+    }
+
+    // ✅ Get logged-in Employer
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loadEmployerJobs(user.uid); // use Firebase Auth UID
+      } else {
+        alert("Please login as employer first!");
+        window.location.href = "employerLogin.html";
+      }
+    });
+  </script>
+
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 20px; }
+    h1 { text-align: center; }
+    .job-card {
+      background: white; padding: 15px; margin: 15px auto; width: 80%;
+      border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .applicant {
+      padding: 10px; margin-top: 5px; border-top: 1px solid #ddd;
+    }
+    button {
+      margin: 5px; padding: 5px 10px; border: none; border-radius: 5px;
+      cursor: pointer;
+    }
+    .accept { background: #28a745; color: white; }
+    .reject { background: #dc3545; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Employer Dashboard</h1>
+  <div id="jobsList"></div>
+</body>
+</html>

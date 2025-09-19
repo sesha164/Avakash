@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Avakash - Applied Jobs</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #eaf1f8; margin: 0; padding: 0; }
+    header {
+      background: #1e3a8a; padding: 15px 30px; display: flex; align-items: center; justify-content: space-between;
+      color: white;
+    }
+    header img { height: 40px; }
+    nav a { margin-left: 20px; text-decoration: none; color: white; font-weight: bold; }
+    h2 { text-align: center; margin: 20px 0; color: #1e3a8a; }
+    .jobs-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffdd57;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .brand-name {
+      margin-left: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffdd57;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    }
+    .job-card {
+      background: #fff;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .job-card h3 {
+      margin: 0 0 10px;
+      color: #111827;
+      font-size: 18px;
+      text-transform: capitalize;
+    }
+    .job-card p { margin: 6px 0; font-size: 14px; }
+    .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #facc15;
+      color: #78350f;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+     <div class="logo-container">
+      <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img" />
+      <span class="brand-name">Avakash</span>
+    </div>
+    <nav>
+      <a href="Homepage.html">Home</a>
+      <a href="Userprofile.html">Profile</a>
+      <a href="Login.html">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Title -->
+  <h2>Your Applied Jobs</h2>
+
+  <!-- Jobs List -->
+  <div class="jobs-container" id="appliedJobsList"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // 🔑 Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+      authDomain: "avakash-4b6ec.firebaseapp.com",
+      projectId: "avakash-4b6ec",
+      storageBucket: "avakash-4b6ec.firebasestorage.app",
+      messagingSenderId: "15657241012",
+      appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+      measurementId: "G-X38XR2NGL4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const appliedJobsList = document.getElementById("appliedJobsList");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        alert("⚠ Please login first!");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const q = query(collection(db, "applications"), where("uid", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+
+      appliedJobsList.innerHTML = "";
+
+      if (querySnapshot.empty) {
+        appliedJobsList.innerHTML = "<p style='text-align:center;'>You haven’t applied for any jobs yet.</p>";
+        return;
+      }
+
+      for (const appSnap of querySnapshot.docs) {
+        const appData = appSnap.data();
+        const jobId = appData.jobId;
+        const status = appData.status || "Pending";
+        const appliedAt = appData.appliedAt?.toDate().toLocaleString() || "N/A";
+
+        // Get job details
+        const jobRef = doc(db, "jobs", jobId);
+        const jobSnap = await getDoc(jobRef);
+
+        if (!jobSnap.exists()) continue;
+        const job = jobSnap.data();
+
+        // Get employer/shop details
+        let shopName = "Unknown Shop", employerName = "Unknown Employer";
+        if (job.employerId) {
+          const empRef = doc(db, "employers", job.employerId);
+          const empSnap = await getDoc(empRef);
+          if (empSnap.exists()) {
+            const emp = empSnap.data();
+            shopName = emp.shopName || shopName;
+            employerName = emp.ownerName || employerName;
+          }
+        }
+
+        // Build card
+        const card = document.createElement("div");
+        card.className = "job-card";
+        card.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><b>Shop:</b> ${shopName}</p>
+          <p><b>Employer:</b> ${employerName}</p>
+          <p><b>Salary:</b> ${job.salary || "N/A"}</p>
+          <p><b>Timings:</b> ${job.timings || "N/A"}</p>
+          <p><b>Skills Required:</b> ${job.skills || "N/A"}</p>
+          <p><b>Address:</b> ${job.address || "N/A"}</p>
+          <p><b>Status:</b> <span class="status">${status}</span></p>
+          <p><b>Applied At:</b> ${appliedAt}</p>
+        `;
+        appliedJobsList.appendChild(card);
+      }
+    });
+  </script>
+</body>
+</html>

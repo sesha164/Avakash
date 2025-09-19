@@ -197,7 +197,7 @@
 <script type="module">
   // Import the functions from Firebase CDN
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   // Your Firebase config
   const firebaseConfig = {
@@ -210,7 +210,7 @@
     measurementId: "G-X38XR2NGL4"
   };
 
-  // Initialize Firebaseg
+  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
@@ -229,7 +229,8 @@
     const shopPhoto = document.getElementById("shopPhoto").files[0]?.name || "No file uploaded";
 
     try {
-      await addDoc(collection(db, "employerProfiles"), {
+      // Use contact as unique ID for employer profile
+      await setDoc(doc(db, "employerProfiles", contact), {
         employerName,
         address,
         skills,
@@ -241,8 +242,10 @@
         shopPhoto,
         createdAt: new Date()
       });
+      // ✅ Redirect after saving
       alert("✅ Employer Profile saved successfully!");
       document.querySelector("form").reset();
+      window.location.href = "EmployerDashboard.html";  // redirect to dashboard
     } catch (error) {
       console.error("❌ Error saving employer profile:", error);
       alert("Error: " + error.message);
