@@ -5,35 +5,8 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, up
 import { doc, setDoc } 
   from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-<<<<<<< HEAD
 // 🔹 Handle Email/Password Signup
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
-=======
-// ✅ Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
-  authDomain: "avakash-4b6ec.firebaseapp.com",
-  projectId: "avakash-4b6ec",
-  storageBucket: "avakash-4b6ec.firebasestorage.app",
-  messagingSenderId: "15657241012",
-  appId: "1:15657241012:web:f24eac84b699b290c04ae1",
-  measurementId: "G-X38XR2NGL4"
-};
-
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-
-// ✅ Google Provider Setup with "force choose account"
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
-  prompt: "select_account"
-});
-
-// ✅ Email/Password Sign-Up
-document.getElementById("signup-form").addEventListener("submit", (e) => {
->>>>>>> 109b4a86ea666aa8b611db314e0a28fea1f3c1e1
   e.preventDefault();
 
   const fullname = document.getElementById("fullname").value;
@@ -61,32 +34,26 @@ document.getElementById("signup-form").addEventListener("submit", (e) => {
     });
 
     alert("✅ Signup successful! Please login.");
-    window.location.href = "login.html"; // redirect to login page
+    window.location.href = "Login.html"; // redirect to login page
   } catch (error) {
     alert("❌ Error: " + error.message);
     console.error(error);
   }
 });
 
-// 🔹 Handle Google Signup/Login
-window.googleLogin = async function () {
-  const provider = new GoogleAuthProvider();
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
+// ✅ Google Sign-In
+window.googleLogin = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      alert("✅ Signed in as " + user.displayName);
 
-    // ✅ Save Google user in Firestore
-    await setDoc(doc(db, "userProfiles", user.uid), {
-      fullname: user.displayName,
-      email: user.email,
-      profilePic: user.photoURL,
-      createdAt: new Date().toISOString(),
-    }, { merge: true });
-
-    alert("✅ Google sign-up successful!");
-    window.location.href = "homepage.html";
-  } catch (error) {
-    alert("❌ Google login error: " + error.message);
-    console.error(error);
-  }
+      // Optional: redirect to dashboard
+      // window.location.href = "dashboard.html";
+    })
+    .catch((error) => {
+      console.error("❌ Google sign-in error:", error);
+      alert("Google sign-in failed: " + error.message);
+    });
 };
+

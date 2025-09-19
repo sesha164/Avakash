@@ -6,30 +6,11 @@
   <title>Avakash - Login</title>
   <style>
     /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-.logo {
-  display: flex;
-  align-items: left top;
-  justify-content:left top;
-  margin-top: 40px;
-  gap: 10px;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.logo-icon {
-  height: 50px; /* adjust as needed */
-  width: auto;
-}
-
-.logo span {
-  font-size: 28px;
-  font-weight: bold;
-  color: #ffdd57;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-}
+    .logo { display: flex; align-items: left top; justify-content:left top; margin-top: 40px; gap: 10px; }
+    .logo-icon { height: 50px; width: auto; }
+    .logo span { font-size: 28px; font-weight: bold; color: #ffdd57; text-shadow: 1px 1px 4px rgba(0,0,0,0.7); }
 
     html, body {
       height: 100%;
@@ -39,21 +20,17 @@
       color: white;
       position: relative;
     }
-      
-    /* Dark overlay */
+
     body::before {
       content: "";
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.6);
       z-index: 0;
     }
-    
 
     .container {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       max-width: 400px;
       margin: 100px auto;
       background: rgba(0, 0, 0, 0.75);
@@ -71,142 +48,78 @@
     }
 
     label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 16px;
-      text-align: left;
-      color: #fff;
+      display: block; margin-bottom: 8px; font-weight: 600;
+      font-size: 16px; text-align: left; color: #fff;
     }
 
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px 14px;
-      margin-bottom: 20px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
+    input[type="email"], input[type="password"] {
+      width: 100%; padding: 12px 14px; margin-bottom: 20px;
+      border: none; border-radius: 6px; font-size: 16px;
     }
 
     input[type="submit"] {
-      width: 100%;
-      padding: 14px;
-      background-color: #ffdd57;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #222;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255, 221, 87, 0.7);
+      width: 100%; padding: 14px;
+      background-color: #ffdd57; border: none; border-radius: 8px;
+      font-size: 18px; font-weight: 700; color: #222;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(255, 221, 87, 0.7);
       transition: background-color 0.3s ease;
     }
 
-    input[type="submit"]:hover {
-      background-color: #4fc3e6;
-    }
+    input[type="submit"]:hover { background-color: #4fc3e6; }
 
-.google-btn {
+    .google-btn {
       background-color: rgb(230, 101, 150);
-      color: #444;
-      font-weight: 600;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 20px;
-      display: inline-flex;
-      align-items: center;
+      color: #444; font-weight: 600; border: none;
+      padding: 12px 20px; border-radius: 6px; cursor: pointer;
+      font-size: 20px; display: inline-flex; align-items: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      width: 100%;
-      justify-content: center;
-      margin-top: 10px;
+      width: 100%; justify-content: center; margin-top: 10px;
     }
 
-    
-    .signup-link {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #fff;
-    }
+    .signup-link { margin-top: 20px; font-size: 14px; color: #fff; }
+    .signup-link a { color: #ffdd57; text-decoration: none; font-weight: 600; }
+    .signup-link a:hover { text-decoration: underline; }
 
-    .signup-link a {
-      color: #ffdd57;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .signup-link a:hover {
-      text-decoration: underline;
-    }
-     @media (max-width: 768px) {
-      .brand-name {
-        font-size: 20px;
-      }}
+    @media (max-width: 768px) { .brand-name { font-size: 20px; } }
     @media (max-width: 480px) {
-      .container {
-        margin: 60px 20px;
-        padding: 30px 20px;
-      }
-
-      .container h2 {
-        font-size: 26px;
-      }
-    }
-    select {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 18px;
-      border: none;
-      border-radius: 6px;
-      font-size: 18px;
-      text-align: left;
+      .container { margin: 60px 20px; padding: 30px 20px; }
+      .container h2 { font-size: 26px; }
     }
 
     select {
-      font-size: 20px;   /* make User/Employer bigger */
+      width: 100%; padding: 14px; margin-bottom: 18px;
+      border: none; border-radius: 6px; font-size: 18px; text-align: left;
       font-weight: 600;
     }
   </style>
 </head>
+
 <!-- ✅ Success Modal -->
- <div id="successModal" style="
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #28a745;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  display: none;
-  z-index: 9999;
+<div id="successModal" style="
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  background: #28a745; color: white; padding: 12px 25px;
+  border-radius: 6px; font-size: 16px; font-weight: bold;
+  display: none; z-index: 9999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  animation: fadeInOut 2s ease-in-out;
-">
+  animation: fadeInOut 2s ease-in-out;">
   ✅ Login successfully completed!
 </div>
 
-
 <body>
-  
   <div class="logo-container">
-  <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img"/>
-  <span class="brand-name">Avakash</span>
-</div>
+    <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img"/>
+    <span class="brand-name">Avakash</span>
+  </div>
 
   <div class="container">
     <h2>Login to Avakash</h2>
-    <form action="#" method="POST">
+    <form id="login-form">
       <label for="email">Email Address</label>
       <input type="email" id="email" name="email" placeholder="example@mail.com" required />
 
       <label for="password">Password</label>
       <input type="password" id="password" name="password" placeholder="Enter your password" required />
-      <!-- 🔵 Role selection -->
+
       <label for="role">Select Role</label>
       <select id="role" required>
         <option value="user">User</option>
@@ -215,71 +128,96 @@
 
       <input type="submit" value="Login" />
     </form>
-    
-     <button class="google-btn" onclick="googleLogin()" >
-  <img src="images/google_resized_16x16.png" alt="Google logo" width="32" height="32" />
-  Continue with Google
-</button>
-    
+
+    <button class="google-btn" onclick="googleLogin()">
+      <img src="images/google_resized_16x16.png" alt="Google logo" width="32" height="32" />
+      Continue with Google
+    </button>
+
     <div class="signup-link">
       Don't have an account?
-     <a href="signup.html">signup</a>       
+      <a href="signup.html">signup</a>
     </div>
   </div>
+
+  <!-- ✅ Role-based Login Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } 
       from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-    // 🔹 Your Firebase Config (same as in signup.html)
-    
+    // 🔹 Firebase Config
     const firebaseConfig = {
-  apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
-  authDomain: "avakash-4b6ec.firebaseapp.com",
-  projectId: "avakash-4b6ec",
-  storageBucket: "avakash-4b6ec.firebasestorage.app",
-  messagingSenderId: "15657241012",
-  appId: "1:15657241012:web:f24eac84b699b290c04ae1",
-  measurementId: "G-X38XR2NGL4"
-};
+      apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+      authDomain: "avakash-4b6ec.firebaseapp.com",
+      projectId: "avakash-4b6ec",
+      storageBucket: "avakash-4b6ec.firebasestorage.app",
+      messagingSenderId: "15657241012",
+      appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+      measurementId: "G-X38XR2NGL4"
+    };
 
-
-    // Initialize Firebase
+    // ✅ Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
 
-    // 🔹 Login with Email/Password
-    const loginForm = document.getElementById("login-form");
-    loginForm.addEventListener("submit", async (e) => {
+    // ✅ Email/Password Login
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
       e.preventDefault();
+
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+      const role = document.getElementById("role").value;
 
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful! 🎉");
-        window.location.href = "Homepage.html"; // Redirect to home/dashboard
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Save role in Firestore
+        await setDoc(doc(db, "userProfiles", user.uid), {
+          email: user.email,
+          role: role,
+          lastLogin: new Date().toISOString()
+        }, { merge: true });
+
+        console.log("✅ Firestore user doc written:", user.uid);
+
+        // Redirect based on role
+        if (role === "employer") {
+          window.location.href = "Employer.html";
+        } else {
+          window.location.href = "Location.html";
+        }
       } catch (error) {
-        alert("Error: " + error.message);
+        alert("❌ " + error.message);
       }
     });
 
-    // 🔹 Google Sign-In
-    const googleBtn = document.getElementById("googleLogin");
-    const provider = new GoogleAuthProvider();
-
-    googleBtn.addEventListener("click", async () => {
+    // ✅ Google Login
+    window.googleLogin = async function () {
       try {
-        await signInWithPopup(auth, provider);
-        alert("Google Sign-In successful! 🎉");
-        window.location.href = "Homepage.html";
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        await setDoc(doc(db, "userProfiles", user.uid), {
+          name: user.displayName,
+          email: user.email,
+          profilePic: user.photoURL,
+          lastLogin: new Date().toISOString(),
+          role: "user"
+        }, { merge: true });
+
+        console.log("✅ Google login successful:", user.email);
+        window.location.href = "homepage.html";
       } catch (error) {
-        alert("Error: " + error.message);
+        alert("❌ Google login failed: " + error.message);
       }
-    });
+    };
   </script>
-<script type="module" src="javascript/login.js"></script>
-
-
 </body>
 </html>
