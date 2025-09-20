@@ -198,6 +198,42 @@
   </head>
 
   <body>
+    <!-- Splash/Intro Video Overlay -->
+    <div
+      id="splash-overlay"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      "
+    >
+      <video
+        id="splash-video"
+        src="video/icon animation.mp4"
+        autoplay
+        muted
+        playsinline
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          object-fit: cover;
+          object-position: center;
+        "
+      ></video>
+    </div>
+    <div id="page-content" style="opacity: 0; transition: opacity 1s"></div>
+    <!-- ...rest of your page... -->
     <header>
       <div class="logo-container">
         <img
@@ -284,6 +320,21 @@
           }
         });
       };
+    </script>
+    <script>
+      const splash = document.getElementById("splash-overlay");
+      const video = document.getElementById("splash-video");
+      const pageContent = document.getElementById("page-content");
+      if (video) {
+        video.onended = () => {
+          splash.style.transition = "opacity 0.8s";
+          splash.style.opacity = "0";
+          setTimeout(() => {
+            splash.style.display = "none";
+            pageContent.style.opacity = "1";
+          }, 800);
+        };
+      }
     </script>
   </body>
 </html>
