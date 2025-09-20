@@ -1,17 +1,35 @@
-// SignUp.js
-import { auth, db } from "./firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  updateProfile,
+// ✅ Firebase Initialization
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  updateProfile, 
+  GoogleAuthProvider, 
+  signInWithPopup 
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-import {
-  doc,
-  setDoc,
+import { 
+  getFirestore, 
+  doc, 
+  setDoc 
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
 
-// ✅ Create Google provider (global, accessible everywhere)
+// 🔹 Replace with your Firebase config
+// 🔹 Firebase Config
+      const firebaseConfig = {
+        apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+        authDomain: "avakash-4b6ec.firebaseapp.com",
+        projectId: "avakash-4b6ec",
+        storageBucket: "avakash-4b6ec.firebasestorage.app",
+        messagingSenderId: "15657241012",
+        appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+        measurementId: "G-X38XR2NGL4",
+      };
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ✅ Google Provider
 const provider = new GoogleAuthProvider();
 
 // 🔹 Handle Email/Password Signup
@@ -29,12 +47,8 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
   }
 
   try {
-    // ✅ Create user in Firebase Auth
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    // ✅ Create user
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
     // ✅ Update display name
@@ -48,33 +62,29 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
     });
 
     alert("✅ Signup successful! Please login.");
-    window.location.href = "Login.html"; // redirect to login page
+    window.location.href = "login.html"; // make sure file name matches
   } catch (error) {
     alert("❌ Error: " + error.message);
     console.error(error);
   }
 });
 
-// ✅ Google login function
+// 🔹 Google Login Function
 window.googleLogin = async function () {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    await setDoc(
-      doc(db, "userProfiles", user.uid),
-      {
-        name: user.displayName,
-        email: user.email,
-        profilePic: user.photoURL,
-        lastLogin: new Date().toISOString(),
-        role: "user",
-      },
-      { merge: true }
-    );
+    await setDoc(doc(db, "userProfiles", user.uid), {
+      name: user.displayName,
+      email: user.email,
+      profilePic: user.photoURL,
+      lastLogin: new Date().toISOString(),
+      role: "user"
+    }, { merge: true });
 
     console.log("✅ Google login successful:", user.email);
-    window.location.href = "index.html";
+    window.location.href = "homepage.html";
   } catch (error) {
     alert("❌ Google login failed: " + error.message);
     console.error(error);
