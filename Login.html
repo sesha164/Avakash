@@ -1,248 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Avakash - Login</title>
-  <style>
-    /* Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Avakash - Login</title>
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    .logo { display: flex; align-items: left top; justify-content:left top; margin-top: 40px; gap: 10px; }
-    .logo-icon { height: 50px; width: auto; }
-    .logo span { font-size: 28px; font-weight: bold; color: #ffdd57; text-shadow: 1px 1px 4px rgba(0,0,0,0.7); }
+      .logo {
+        display: flex;
+        align-items: left top;
+        justify-content: left top;
+        margin-top: 40px;
+        gap: 10px;
+      }
+      .logo-icon {
+        height: 50px;
+        width: auto;
+      }
+      .logo span {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffdd57;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+      }
 
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('images/vt.png') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      position: relative;
-    }
+      html,
+      body {
+        height: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("images/vt.png") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        position: relative;
+      }
 
-    body::before {
-      content: "";
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 0;
-    }
-     .logo-container {
-      display: flex;
-      align-items: center;
-    }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 0;
+      }
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
 
-    .logo-img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ffdd57;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    }
+      .logo-img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ffdd57;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      }
 
-    .brand-name {
-      margin-left: 10px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #ffdd57;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
-    }
-
-    .container {
-      position: relative; z-index: 1;
-      max-width: 400px;
-      margin: 100px auto;
-      background: rgba(0, 0, 0, 0.75);
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
-      text-align: center;
-    }
-
-    .container h2 {
-      margin-bottom: 30px;
-      font-size: 32px;
-      color: #ffdd57;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-    }
-
-    label {
-      display: block; margin-bottom: 8px; font-weight: 600;
-      font-size: 16px; text-align: left; color: #fff;
-    }
-
-    input[type="email"], input[type="password"] {
-      width: 100%; padding: 12px 14px; margin-bottom: 20px;
-      border: none; border-radius: 6px; font-size: 16px;
-    }
-
-    input[type="submit"] {
-      width: 100%; padding: 14px;
-      background-color: #ffdd57; border: none; border-radius: 8px;
-      font-size: 18px; font-weight: 700; color: #222;
-      cursor: pointer; box-shadow: 0 4px 10px rgba(255, 221, 87, 0.7);
-      transition: background-color 0.3s ease;
-    }
-
-    input[type="submit"]:hover { background-color: #4fc3e6; }
-
-    .google-btn {
-      background-color: rgb(230, 101, 150);
-      color: #444; font-weight: 600; border: none;
-      padding: 12px 20px; border-radius: 6px; cursor: pointer;
-      font-size: 20px; display: inline-flex; align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      width: 100%; justify-content: center; margin-top: 10px;
-    }
-
-    .signup-link { margin-top: 20px; font-size: 14px; color: #fff; }
-    .signup-link a { color: #ffdd57; text-decoration: none; font-weight: 600; }
-    .signup-link a:hover { text-decoration: underline; }
-
-    @media (max-width: 768px) { .brand-name { font-size: 20px; } }
-    @media (max-width: 480px) {
-      .container { margin: 60px 20px; padding: 30px 20px; }
-      .container h2 { font-size: 26px; }
-    }
-    @media (max-width: 768px) {
       .brand-name {
+        margin-left: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffdd57;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 400px;
+        margin: 100px auto;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+        text-align: center;
+      }
+
+      .container h2 {
+        margin-bottom: 30px;
+        font-size: 32px;
+        color: #ffdd57;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: left;
+        color: #fff;
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        background-color: #ffdd57;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #222;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(255, 221, 87, 0.7);
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #4fc3e6;
+      }
+
+      .google-btn {
+        background-color: rgb(230, 101, 150);
+        color: #444;
+        font-weight: 600;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
         font-size: 20px;
-      }}
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+      }
 
-    select {
-      width: 100%; padding: 14px; margin-bottom: 18px;
-      border: none; border-radius: 6px; font-size: 18px; text-align: left;
-      font-weight: 600;
-    }
-  </style>
-</head>
+      .signup-link {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #fff;
+      }
+      .signup-link a {
+        color: #ffdd57;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .signup-link a:hover {
+        text-decoration: underline;
+      }
 
-<!-- ✅ Success Modal -->
-<div id="successModal" style="
-  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-  background: #28a745; color: white; padding: 12px 25px;
-  border-radius: 6px; font-size: 16px; font-weight: bold;
-  display: none; z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  animation: fadeInOut 2s ease-in-out;">
-  ✅ Login successfully completed!
-</div>
-
-<body>
-  <div class="logo-container">
-    <img src="images/logo1_resized_256x256.png" alt="Avakashlogo" class="logo-img"/>
-    <span class="brand-name">Avakash</span>
-  </div>
-
-  <div class="container">
-    <h2>Login to Avakash</h2>
-    <form id="login-form">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="example@mail.com" required />
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter your password" required />
-
-      <label for="role">Select Role</label>
-      <select id="role" required>
-        <option value="user">User</option>
-        <option value="employer">Employer</option>
-      </select>
-
-      <input type="submit" value="Login" />
-    </form>
-
-    <button class="google-btn" onclick="googleLogin()">
-      <img src="images/google_resized_16x16.png" alt="Google logo" width="32" height="32" />
-      Continue with Google
-    </button>
-
-    <div class="signup-link">
-      Don't have an account?
-      <a href="signup.html">signup</a>
-    </div>
-  </div>
-
-  <!-- ✅ Role-based Login Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } 
-      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc } 
-      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-    // 🔹 Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
-      authDomain: "avakash-4b6ec.firebaseapp.com",
-      projectId: "avakash-4b6ec",
-      storageBucket: "avakash-4b6ec.firebasestorage.app",
-      messagingSenderId: "15657241012",
-      appId: "1:15657241012:web:f24eac84b699b290c04ae1",
-      measurementId: "G-X38XR2NGL4"
-    };
-
-    // ✅ Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: "select_account" });
-
-    // ✅ Email/Password Login
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const role = document.getElementById("role").value;
-
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        // Save role in Firestore
-        await setDoc(doc(db, "userProfiles", user.uid), {
-          email: user.email,
-          role: role,
-          lastLogin: new Date().toISOString()
-        }, { merge: true });
-
-        console.log("✅ Firestore user doc written:", user.uid);
-
-        // Redirect based on role
-        if (role === "employer") {
-          window.location.href = "Employer.html";
-        } else {
-          window.location.href = "Location.html";
+      @media (max-width: 768px) {
+        .brand-name {
+          font-size: 20px;
         }
-      } catch (error) {
-        alert("❌ " + error.message);
       }
-    });
-
-    // ✅ Google Login
-    window.googleLogin = async function () {
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-
-        await setDoc(doc(db, "userProfiles", user.uid), {
-          name: user.displayName,
-          email: user.email,
-          profilePic: user.photoURL,
-          lastLogin: new Date().toISOString(),
-          role: "user"
-        }, { merge: true });
-
-        console.log("✅ Google login successful:", user.email);
-        window.location.href = "homepage.html";
-      } catch (error) {
-        alert("❌ Google login failed: " + error.message);
+      @media (max-width: 480px) {
+        .container {
+          margin: 60px 20px;
+          padding: 30px 20px;
+        }
+        .container h2 {
+          font-size: 26px;
+        }
       }
-    };
-  </script>
-</body>
+      @media (max-width: 768px) {
+        .brand-name {
+          font-size: 20px;
+        }
+      }
+
+      select {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 18px;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        text-align: left;
+        font-weight: 600;
+      }
+    </style>
+    <style>
+      .lang-toggle {
+        margin-left: 10px;
+        padding: 6px 14px;
+        border: 1px solid rgba(255, 221, 87, 0.85);
+        border-radius: 999px;
+        background: rgba(255, 221, 87, 0.15);
+        color: #ffdd57;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+      }
+      .lang-toggle:hover {
+        background: rgba(255, 221, 87, 0.3);
+        color: #fff;
+      }
+    </style>
+    <script src="javascript/i18n.js"></script>
+  </head>
+
+  <!-- ✅ Success Modal -->
+  <div
+    id="successModal"
+    style="
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #28a745;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      display: none;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      animation: fadeInOut 2s ease-in-out;
+    "
+  >
+    ✅ Login successfully completed!
+  </div>
+
+  <body>
+    <div class="logo-container">
+      <img
+        src="images/logo1_resized_256x256.png"
+        alt="Avakashlogo"
+        class="logo-img"
+      />
+      <span class="brand-name" data-i18n="site_name">Avakash</span>
+      <button
+        class="lang-toggle"
+        onclick="i18n.toggle()"
+        data-i18n="lang_toggle"
+      >
+        TE / EN
+      </button>
+    </div>
+
+    <div class="container">
+      <h2 data-i18n="login_heading">Login to Avakash</h2>
+      <form id="login-form">
+        <label for="email" data-i18n="label_email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="example@mail.com"
+          data-i18n-placeholder="ph_email"
+          required
+        />
+
+        <label for="password" data-i18n="label_password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          data-i18n-placeholder="ph_password"
+          required
+        />
+
+        <label for="role" data-i18n="label_role">Select Role</label>
+        <select id="role" required>
+          <option value="user" data-i18n="role_user">User</option>
+          <option value="employer" data-i18n="role_employer">Employer</option>
+        </select>
+
+        <input
+          type="submit"
+          value="Login"
+          data-i18n-placeholder="btn_login_submit"
+        />
+      </form>
+
+      <button class="google-btn" onclick="googleLogin()">
+        <img
+          src="images/google_resized_16x16.png"
+          alt="Google logo"
+          width="32"
+          height="32"
+        />
+        <span data-i18n="btn_google">Continue with Google</span>
+      </button>
+
+      <div class="signup-link">
+        <span data-i18n="no_account">Don't have an account?</span>
+        <a href="Signup.html" data-i18n="link_signup">signup</a>
+      </div>
+    </div>
+
+    <!-- ✅ Role-based Login Script -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      // 🔹 Firebase Config
+      const firebaseConfig = {
+        apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+        authDomain: "avakash-4b6ec.firebaseapp.com",
+        projectId: "avakash-4b6ec",
+        storageBucket: "avakash-4b6ec.firebasestorage.app",
+        messagingSenderId: "15657241012",
+        appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+        measurementId: "G-X38XR2NGL4",
+      };
+
+      // ✅ Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+
+      // ✅ Email/Password Login
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const role = document.getElementById("role").value;
+
+          try {
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            const user = userCredential.user;
+
+            // Save role in Firestore
+            await setDoc(
+              doc(db, "userProfiles", user.uid),
+              {
+                email: user.email,
+                role: role,
+                lastLogin: new Date().toISOString(),
+              },
+              { merge: true }
+            );
+
+            console.log("✅ Firestore user doc written:", user.uid);
+
+            // Redirect based on role
+            if (role === "employer") {
+              window.location.href = "emp.html";
+            } else {
+              window.location.href = "Location.html";
+            }
+          } catch (error) {
+            alert("❌ " + error.message);
+          }
+        });
+
+      // ✅ Google Login
+      window.googleLogin = async function () {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
+
+          await setDoc(
+            doc(db, "userProfiles", user.uid),
+            {
+              name: user.displayName,
+              email: user.email,
+              profilePic: user.photoURL,
+              lastLogin: new Date().toISOString(),
+              role: "user",
+            },
+            { merge: true }
+          );
+
+          console.log("✅ Google login successful:", user.email);
+          window.location.href = "index.html";
+        } catch (error) {
+          alert("❌ Google login failed: " + error.message);
+        }
+      };
+    </script>
+  </body>
 </html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employer Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2d89ef;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .tab {
+      padding: 12px 20px;
+      margin: 0 5px;
+      background: #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .tab.active {
+      background: #2d89ef;
+      color: white;
+    }
+    .content {
+      display: none;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+    }
+    .content.active {
+      display: block;
+    }
+    form input, form textarea, form button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    form button {
+      background: #2d89ef;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .job-card {
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    .applicant {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .applicant button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .accept { background: #28a745; color: white; }
+    .reject { background: #dc3545; color: white; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Employer Dashboard</h1>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('postJob')">Post Job</div>
+    <div class="tab" onclick="showTab('myJobs')">My Posted Jobs</div>
+  </div>
+
+  <!-- Post Job Form -->
+  <div id="postJob" class="content active">
+    <h2>Post a New Job</h2>
+    <form id="postJobForm">
+      <input type="text" id="title" placeholder="Job Title" required>
+      <textarea id="description" placeholder="Job Description" required></textarea>
+      <input type="text" id="salary" placeholder="Salary" required>
+      <button type="submit">Post Job</button>
+    </form>
+  </div>
+
+  <!-- Posted Jobs + Applicants -->
+  <div id="myJobs" class="content">
+    <h2>My Posted Jobs</h2>
+    <div id="jobsList"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCHHi6hTJQ_hcvUg1IAew5ptO1onnlaki8",
+      authDomain: "avakash-4b6ec.firebaseapp.com",
+      projectId: "avakash-4b6ec",
+      storageBucket: "avakash-4b6ec.firebasestorage.app",
+      messagingSenderId: "15657241012",
+      appId: "1:15657241012:web:f24eac84b699b290c04ae1",
+      measurementId: "G-X38XR2NGL4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Tab switching
+    function showTab(tabId) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+    window.showTab = showTab;
+
+    // Post Job Form
+    const postJobForm = document.getElementById("postJobForm");
+    postJobForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const salary = document.getElementById("salary").value;
+
+      const user = auth.currentUser;
+      if (!user) {
+        alert("Please login as employer");
+        return;
+      }
+
+      await addDoc(collection(db, "jobs"), {
+        employerId: user.uid,
+        title,
+        description,
+        salary,
+        createdAt: new Date()
+      });
+
+      alert("Job Posted Successfully!");
+      postJobForm.reset();
+      showTab('myJobs');
+      loadEmployerJobs(user.uid);
+    });
+
+    // Load Jobs + Applicants
+    async function loadEmployerJobs(employerId) {
+      const jobsList = document.getElementById("jobsList");
+      jobsList.innerHTML = "";
+
+      const q = query(collection(db, "jobs"), where("employerId", "==", employerId));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach(async (jobDoc) => {
+        const job = jobDoc.data();
+        const jobCard = document.createElement("div");
+        jobCard.classList.add("job-card");
+        jobCard.innerHTML = `<h3>${job.title}</h3>
+          <p>${job.description}</p>
+          <p><strong>Salary:</strong> ${job.salary}</p>
+          <h4>Applicants:</h4>
+          <div id="applicants-${jobDoc.id}">Loading...</div>`;
+        jobsList.appendChild(jobCard);
+
+        // Load applicants for this job
+        const appsSnapshot = await getDocs(query(collection(db, "applications"), where("jobId", "==", jobDoc.id)));
+        const applicantsDiv = document.getElementById(`applicants-${jobDoc.id}`);
+        applicantsDiv.innerHTML = "";
+        appsSnapshot.forEach(appDoc => {
+          const app = appDoc.data();
+          const applicantDiv = document.createElement("div");
+          applicantDiv.classList.add("applicant");
+          applicantDiv.innerHTML = `
+            <p><strong>${app.userName}</strong> (${app.userEmail})</p>
+            <button class="accept">Accept</button>
+            <button class="reject">Reject</button>
+          `;
+
+          applicantDiv.querySelector(".accept").addEventListener("click", async () => {
+            await updateDoc(doc(db, "applications", appDoc.id), { status: "accepted" });
+            alert("Applicant Accepted!");
+          });
+          applicantDiv.querySelector(".reject").addEventListener("click", async () => {
+            await updateDoc(doc(db, "applications", appDoc.id), { status: "rejected" });
+            alert("Applicant Rejected!");
+          });
+
+          applicantsDiv.appendChild(applicantDiv);
+        });
+      });
+    }
+
+    // Load employer jobs when logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loadEmployerJobs(user.uid);
+      }
+    });
+  </script>
+</body>
+</html>
+
